@@ -54,13 +54,14 @@ namespace EventCaptureApp
 
 		protected override void RegisterTypes()
 		{
-			this.Container.RegisterTypeForNavigation<NavigationPage>();
+			this.Container.RegisterTypeForNavigation<AppNavigationPage>();
 			this.Container.RegisterTypeForNavigation<LaunchPage>();
 			this.Container.RegisterTypeForNavigation<LoginPage>();
 			this.Container.RegisterTypeForNavigation<CampaignListPage>();
 			this.Container.RegisterTypeForNavigation<UpdatePage>();
 			this.Container.RegisterTypeForNavigation<CampaignPage>();
 			this.Container.RegisterTypeForNavigation<DocumentPage>();
+			this.Container.RegisterTypeForNavigation<LeadCapturePage>();
 		}
 
 		protected override void OnStart()

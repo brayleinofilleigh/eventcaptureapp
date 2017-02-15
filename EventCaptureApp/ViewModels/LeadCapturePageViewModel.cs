@@ -1,4 +1,6 @@
 ﻿using System;
+using EventCaptureApp.Data;
+using EventCaptureApp.Models;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -6,6 +8,11 @@ namespace EventCaptureApp.ViewModels
 	{
 		public LeadCapturePageViewModel()
 		{
+		}
+
+		public LeadCaptureForm LeadCaptureForm
+		{
+			get { return CampaignData.Instance.Current.LeadCaptureForm; }
 		}
 	}
 }

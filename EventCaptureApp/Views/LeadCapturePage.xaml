@@ -4,7 +4,7 @@
 		xmlns:controls="clr-namespace:EventCaptureApp.Controls;assembly=EventCaptureApp"
 		xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
      	prism:ViewModelLocator.AutowireViewModel="True"
-		x:Class="EventCaptureApp.Views.LeadCapturePage">
+		x:Class="EventCaptureApp.Views.LeadCapturePage" Title="Lead Capture">
 	<ContentPage.Content>
 		<StackLayout HorizontalOptions="CenterAndExpand" Padding="50" Spacing="10">
 			<Label Text="{Binding LeadCaptureForm.Title}"/>

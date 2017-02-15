@@ -129,6 +129,8 @@
     <Compile Include="Models\LeadCaptureForm.cs" />
     <Compile Include="Models\FormInput.cs" />
     <Compile Include="Enums\FormInputType.cs" />
+    <Compile Include="Views\AppNavigationPage.cs" />
+    <Compile Include="Styles\AppColors.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -220,6 +222,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Controls\" />
     <Folder Include="Delegates\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
