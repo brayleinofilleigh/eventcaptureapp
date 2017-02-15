@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage Title="Campaigns" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+		xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+     	prism:ViewModelLocator.AutowireViewModel="True"
+		x:Class="EventCaptureApp.Views.CampaignListPage">
+	<ContentPage.Content>
+		<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+			<ListView x:Name="campaignListView" ItemsSource="{Binding Campaigns}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding UpdateCommand}" IsRefreshing="{Binding IsBusy}" SelectedItem="{Binding SelectedCampaign}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="50,0,50,0">
+								<Label Text="{Binding Name}"/>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

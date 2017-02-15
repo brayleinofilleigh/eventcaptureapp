@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<controls:ContentViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+		x:Class="EventCaptureApp.Controls.CategoryMenuBarButton"
+		xmlns:controls="clr-namespace:EventCaptureApp.Controls;assembly=EventCaptureApp"
+		HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HighlightColor="Fuchsia">
+	<ContentView.Content>
+		<Grid>
+			<Label Text="{Binding Title}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+		</Grid>
+	</ContentView.Content>
+</controls:ContentViewBase>
