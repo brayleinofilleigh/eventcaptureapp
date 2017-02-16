@@ -6,8 +6,23 @@
      	prism:ViewModelLocator.AutowireViewModel="True"
 		x:Class="EventCaptureApp.Views.LeadCapturePage" Title="Lead Capture">
 	<ContentPage.Content>
-		<StackLayout HorizontalOptions="CenterAndExpand" Padding="50" Spacing="10">
-			<Label Text="{Binding LeadCaptureForm.Title}"/>
-		</StackLayout>
+		<Grid>
+			<ScrollView>
+				<StackLayout x:Name="contentLayout" Padding="50" Spacing="10">
+					<Label Text="{Binding LeadCaptureForm.Title}" FontSize="20" FontAttributes="Bold"/>
+					<Label Text="{Binding LeadCaptureForm.BodyText}"/>
+					<Button Text="Submit" Command="{Binding SubmitCommand}"/>
+				</StackLayout>
+			</ScrollView>
+			<ContentView BackgroundColor="Black" IsVisible="false">
+				<ListView Margin="100,50,100,50" ItemsSource="{Binding SelectedValueList}">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<TextCell Text="{Binding .}"/>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</ContentView>
+		</Grid>
 	</ContentPage.Content>
 </ContentPage>

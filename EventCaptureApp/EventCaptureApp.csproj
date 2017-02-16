@@ -131,6 +131,10 @@
     <Compile Include="Enums\FormInputType.cs" />
     <Compile Include="Views\AppNavigationPage.cs" />
     <Compile Include="Styles\AppColors.cs" />
+    <Compile Include="AppFormInputs.cs" />
+    <Compile Include="Controls\TextEntry.cs" />
+    <Compile Include="Interfaces\IFormInputControl.cs" />
+    <Compile Include="Controls\FormSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

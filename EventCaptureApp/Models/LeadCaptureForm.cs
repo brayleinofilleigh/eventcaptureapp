@@ -7,6 +7,8 @@ namespace EventCaptureApp.Models
 	{
 		public string Title { get; set; } = string.Empty;
 
-		public List<FormInput> Inputs { get; set; } = new List<FormInput>();
+		public string BodyText { get; set; } = string.Empty;
+
+		public List<FormInput> FormInputs { get; set; } = new List<FormInput>();
 	}
 }

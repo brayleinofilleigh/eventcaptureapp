@@ -10,7 +10,6 @@ namespace EventCaptureApp.ViewModels
 	public class CampaignPageViewModel: ViewModelBase
 	{
 		private INavigationService _navigationService;
-		private Campaign _campaign;
 		private CampaignCategory _selectedCategory;
 		private CampaignDocument _selectedDocument;
 		private int _numberSelectedDocuments = 0;
@@ -18,14 +17,12 @@ namespace EventCaptureApp.ViewModels
 		public CampaignPageViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
-			this.Campaign = CampaignData.Instance.Current;
 			this.SelectedCategory = this.Campaign.Categories.FirstOrDefault();
 		}
 
 		public Campaign Campaign
 		{
-			get { return _campaign; }
-			private set { this.SetProperty(ref _campaign, value); }
+			get { return CampaignData.Instance.Current; }
 		}
 
 		public CampaignCategory SelectedCategory

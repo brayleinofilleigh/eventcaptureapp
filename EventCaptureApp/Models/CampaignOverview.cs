@@ -6,7 +6,7 @@ namespace EventCaptureApp.Models
 	{
 		public int Id { get; set; } = 0;
 
-		public string Name { get; set; } = string.Empty;
+		public string Title { get; set; } = string.Empty;
 
 		public DateTime DateModified { get; set; } = DateTime.MinValue;
 

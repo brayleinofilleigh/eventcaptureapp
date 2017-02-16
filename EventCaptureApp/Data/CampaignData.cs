@@ -58,6 +58,8 @@ namespace EventCaptureApp.Data
 
 		public async Task<bool> SetCurrent(CampaignOverview campaign)
 		{
+			Debug.WriteLine($"Setting Campaign: {campaign.Title}");
+
 			string configFilePath = AppFiles.Instance.GetDownloadedFilePath(campaign.ConfigFileName); 
 			bool configFileExists = await AppFiles.Instance.FileExists(configFilePath);
 			if (configFileExists)

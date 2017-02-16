@@ -18,25 +18,25 @@ namespace EventCaptureApp
 			{
 				new CampaignOverview() {
 					Id = 1,
-					Name = "Campaign 1",
+					Title = "Campaign 1",
 					DateModified = DateTime.Now,
 					ConfigFileName = "campaign1.json"
 				},
 				new CampaignOverview() {
 					Id = 2,
-					Name = "Campaign 2",
+					Title = "Campaign 2",
 					DateModified = DateTime.Now,
 					ConfigFileName = "campaign2.json"
 				},
 				new CampaignOverview() {
 					Id = 3,
-					Name = "Campaign 3",
+					Title = "Campaign 3",
 					DateModified = DateTime.Now,
 					ConfigFileName = "campaign3.json"
 				},
 				new CampaignOverview() {
 					Id = 4,
-					Name = "Campaign 4",
+					Title = "Campaign 4",
 					DateModified = DateTime.Now,
 					ConfigFileName = "campaign4.json"
 				}
@@ -50,7 +50,7 @@ namespace EventCaptureApp
 			Campaign campaign = new Campaign()
 			{
 				Id = 1,
-				Name = "Campaign 1",
+				Title = "Campaign 1",
 				DateModified = DateTime.Now,
 				ConfigFileName = "campaign1.json",
 				Categories = new List<CampaignCategory>() {
@@ -93,6 +93,27 @@ namespace EventCaptureApp
 							new CampaignDocument() { Id = 32, Title = "Category 4: Document 2", FileName = "doc42.pdf"},
 							new CampaignDocument() { Id = 33, Title = "Category 4: Document 3", FileName = "doc43.pdf"}
 						}
+					}
+				},
+				LeadCaptureForm = new LeadCaptureForm() {
+					Title = "Bray Leino Lead Capture Form",
+					BodyText = "Please fill in the required fields",
+					FormInputs = new List<FormInput>() {
+						new FormInput { Title = "First Name", Type = Enums.FormInputType.TextField, IsRequired = true },
+						new FormInput { Title = "Last Name", Type = Enums.FormInputType.TextField, IsRequired = true },
+						new FormInput { Title = "Company Name", Type = Enums.FormInputType.TextField, IsRequired = true },
+						new FormInput { Title = "Industry Type", Type = Enums.FormInputType.ScrollList,
+							Values = new List<string>() {
+								"Commercial",
+								"Oil & Gas",
+								"IT",
+								"Transport",
+								"Banking",
+								"Construction"
+							}
+						},
+						new FormInput { Title = "Email Address", Type = Enums.FormInputType.EmailField, IsRequired = true },
+						new FormInput { Title = "Would you like to receive updates?", Type = Enums.FormInputType.TickBox, IsRequired = false, Value = "True" }
 					}
 				}
 			};

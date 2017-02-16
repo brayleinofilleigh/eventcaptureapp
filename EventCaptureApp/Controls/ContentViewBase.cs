@@ -7,7 +7,6 @@ namespace EventCaptureApp.Controls
 	{
 		public static readonly BindableProperty IsHighlightedProperty = BindableProperty.Create("IsHighlighted", typeof(bool), typeof(ContentViewBase), false, propertyChanged: OnHighlightChanged);
 
-		private bool _isHighlighted = false;
 		private Color _defaultBgColor;
 
 		public ContentViewBase()

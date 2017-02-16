@@ -4,7 +4,10 @@ namespace EventCaptureApp.Enums
 {
 	public enum FormInputType: int
 	{
-		TextEntry = 1,
-		ValueList = 2
+		TextField = 1,
+		NumericField = 2,
+		EmailField = 3,
+		ScrollList = 4,
+		TickBox = 5
 	}
 }

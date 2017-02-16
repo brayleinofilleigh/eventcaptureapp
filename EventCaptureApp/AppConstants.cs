@@ -25,7 +25,7 @@ namespace EventCaptureApp
 		public static string GetCampaignsUrl
 		{
 			//get { return GetWebserviceCallUrl("GetCampaigns"); }
-			get { return GetWebserviceCallUrl("campaign_list.json"); }
+			get { return GetWebserviceCallUrl("campaigns.json"); }
 		}
 
 		public static string GetCampaignFileListUrl

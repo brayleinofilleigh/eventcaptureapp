@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
+using EventCaptureApp.Interfaces;
+using EventCaptureApp.ViewModels;
 using Xamarin.Forms;
 
 namespace EventCaptureApp.Views
@@ -10,6 +12,9 @@ namespace EventCaptureApp.Views
 		public LeadCapturePage()
 		{
 			InitializeComponent();
+			LeadCapturePageViewModel viewModel = (LeadCapturePageViewModel)this.BindingContext;
+			foreach (IFormInputControl inputControl in viewModel.InputControls)
+				this.contentLayout.Children.Add((View)inputControl);
 		}
 	}
 }
