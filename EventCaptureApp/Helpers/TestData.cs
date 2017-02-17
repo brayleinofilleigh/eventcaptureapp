@@ -11,6 +11,19 @@ namespace EventCaptureApp
 		{
 		}
 
+		public static string GetFileList()
+		{
+			List<FileReference> files = new List<FileReference>()
+			{
+				new FileReference() { Url = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/bleventsapp/campaign1.json", ByteSize = 4313, DateModified = DateTime.Now },
+				new FileReference() { Url = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/bleventsapp/doc1.pdf", ByteSize = 950898, DateModified = DateTime.Now },
+				new FileReference() { Url = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/bleventsapp/doc2.pdf", ByteSize = 950898, DateModified = DateTime.Now },
+				new FileReference() { Url = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/bleventsapp/doc3.pdf", ByteSize = 950898, DateModified = DateTime.Now },
+				new FileReference() { Url = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/bleventsapp/doc4.pdf", ByteSize = 950898, DateModified = DateTime.Now }
+			};
+			return JsonConvert.SerializeObject(files);
+		}
+
 
 		public static string GetCampaignList()
 		{
@@ -99,10 +112,10 @@ namespace EventCaptureApp
 					Title = "Bray Leino Lead Capture Form",
 					BodyText = "Please fill in the required fields",
 					FormInputs = new List<FormInput>() {
-						new FormInput { Title = "First Name", Type = Enums.FormInputType.TextField, IsRequired = true },
-						new FormInput { Title = "Last Name", Type = Enums.FormInputType.TextField, IsRequired = true },
-						new FormInput { Title = "Company Name", Type = Enums.FormInputType.TextField, IsRequired = true },
-						new FormInput { Title = "Industry Type", Type = Enums.FormInputType.ScrollList,
+						new FormInput { Id = 1, Title = "First Name", Type = Enums.FormInputType.TextField, IsRequired = true },
+						new FormInput { Id = 2, Title = "Last Name", Type = Enums.FormInputType.TextField, IsRequired = true },
+						new FormInput { Id = 3, Title = "Company Name", Type = Enums.FormInputType.TextField, IsRequired = true },
+						new FormInput { Id = 4, Title = "Industry Type", Type = Enums.FormInputType.ScrollList,
 							Values = new List<string>() {
 								"Commercial",
 								"Oil & Gas",
@@ -112,8 +125,8 @@ namespace EventCaptureApp
 								"Construction"
 							}
 						},
-						new FormInput { Title = "Email Address", Type = Enums.FormInputType.EmailField, IsRequired = true },
-						new FormInput { Title = "Would you like to receive updates?", Type = Enums.FormInputType.TickBox, IsRequired = false, Value = "True" }
+						new FormInput { Id = 5, Title = "Email Address", Type = Enums.FormInputType.EmailField, IsRequired = true },
+						new FormInput { Id = 6, Title = "Would you like to receive updates?", Type = Enums.FormInputType.TickBox, IsRequired = false, Value = "False" }
 					}
 				}
 			};

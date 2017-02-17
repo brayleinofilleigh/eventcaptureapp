@@ -4,7 +4,7 @@
 		xmlns:controls="clr-namespace:EventCaptureApp.Controls;assembly=EventCaptureApp"
 		xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
      	prism:ViewModelLocator.AutowireViewModel="True"
-		x:Class="EventCaptureApp.Views.LeadCapturePage" Title="Lead Capture">
+		x:Class="EventCaptureApp.Views.LeadCapturePage" Title="{Binding Campaign, StringFormat='{0} - Lead Capture'}">
 	<ContentPage.Content>
 		<Grid>
 			<ScrollView>
@@ -14,8 +14,8 @@
 					<Button Text="Submit" Command="{Binding SubmitCommand}"/>
 				</StackLayout>
 			</ScrollView>
-			<ContentView BackgroundColor="Black" IsVisible="false">
-				<ListView Margin="100,50,100,50" ItemsSource="{Binding SelectedValueList}">
+			<ContentView BackgroundColor="Black" IsVisible="{Binding IsValueListShown}">
+				<ListView Margin="100,50,100,50" ItemsSource="{Binding SelectedValueList}" SelectedItem="{Binding SelectedValueListItem}">
 					<ListView.ItemTemplate>
 						<DataTemplate>
 							<TextCell Text="{Binding .}"/>

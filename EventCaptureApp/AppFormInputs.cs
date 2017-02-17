@@ -13,7 +13,7 @@ namespace EventCaptureApp
 		{
 			{FormInputType.EmailField, typeof(TextEntry)},
 			{FormInputType.NumericField, typeof(TextEntry)},
-			{FormInputType.ScrollList, typeof(TextEntry)},
+			{FormInputType.ScrollList, typeof(FormValueListButton)},
 			{FormInputType.TextField, typeof(TextEntry)},
 			{FormInputType.TickBox, typeof(FormSwitch)}
 		};

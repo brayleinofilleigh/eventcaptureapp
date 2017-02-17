@@ -135,6 +135,8 @@
     <Compile Include="Controls\TextEntry.cs" />
     <Compile Include="Interfaces\IFormInputControl.cs" />
     <Compile Include="Controls\FormSwitch.cs" />
+    <Compile Include="Models\FormInputResult.cs" />
+    <Compile Include="Controls\FormValueListButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

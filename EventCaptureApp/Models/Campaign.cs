@@ -24,5 +24,11 @@ namespace EventCaptureApp
 		{
 			get { return this.Documents.Where(x => x.IsSelected == true).ToList(); }
 		}
+
+		[Newtonsoft.Json.JsonIgnore]
+		public List<int> SelectedDocumentIds
+		{
+			get { return this.SelectedDocuments.Select(x => x.Id).ToList(); }
+		}
 	}
 }

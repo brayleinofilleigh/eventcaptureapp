@@ -12,7 +12,6 @@ namespace EventCaptureApp.Data
 	public class LeadsData
 	{
 		private static LeadsData _instance;
-		private Lead _current;
 
 		public static LeadsData Instance
 		{
@@ -38,18 +37,21 @@ namespace EventCaptureApp.Data
 				RestResponse syncResponse = await RestService.Instance.ExecRequest(AppConstants.SaveNewLeadsUrl, leads);
 				syncSuccess = syncResponse.RequestSuccess;
 			}
+			leads.Clear();
 			return syncSuccess;
 		}
 
-		public void StartNewLead()
+		public async Task<int> SaveLead(int campaignId, List<FormInputResult> captureFormResults, List<int> documentIds)
 		{
-			this.Current = new Lead { Guid = Guid.NewGuid().ToString() };
-		}
-
-		public Lead Current
-		{
-			get { return _current; }
-			private set { _current = value; }
+			Lead lead = new Lead()
+			{
+				Guid = Guid.NewGuid().ToString(),
+				CampaignId = campaignId,
+				CaptureFormResults = captureFormResults,
+				DocumentIds = documentIds
+			};
+			int insertId = await LocalDatabase.Instance.Connection.InsertAsync(lead);
+			return insertId;
 		}
 	}
 }

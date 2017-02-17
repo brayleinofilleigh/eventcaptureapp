@@ -9,6 +9,7 @@ using System.Linq;
 using Plugin.Connectivity;
 using EventCaptureApp.Services;
 using Prism.Commands;
+using Newtonsoft.Json;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -43,7 +44,7 @@ namespace EventCaptureApp.ViewModels
 			}
 			if (this.Campaign != null)
 			{
-				//await this.FileUpdateCheck(this.Campaign.Id);
+				await this.FileUpdateCheck(this.Campaign.Id);
 			}
 			_fileDownloader.DownloadProgress += OnDownloadProgress;
 			_fileDownloader.DownloadError += OnDownloadError;
@@ -68,6 +69,9 @@ namespace EventCaptureApp.ViewModels
 				_updateFileList = await CampaignData.Instance.GetUpdateFileList(campaignId);
 				_numberFilesDownload = _updateFileList.Count;
 				this.IsUpdatesAvailable = _updateFileList.Any();
+
+				Debug.WriteLine(JsonConvert.SerializeObject(_updateFileList));
+
 				if (!this.IsUpdatesAvailable)
 					this.Status = "You are up-to-date";
 			}
@@ -76,6 +80,20 @@ namespace EventCaptureApp.ViewModels
 			}
 			this.IsBusy = false;
 		}
+
+		/*private void GetFilesToUpdate(List<FileReference> fileList)
+		{
+			foreach (FileReference file in fileList)
+			{
+				DateTime localFileDateModed = AppFiles.Instance.GetFileModifiedDate(AppFiles.Instance.GetDownloadedFilePath(file.Name));
+				if (DateTime.Compare(localFileDateModed, file.DateModified) < 0)
+				{
+					file.LocalFolderPath = AppFiles.Instance.DownloadsFolder.Path;
+					_fileUpdateList.Add(remoteFile);
+				}
+			}
+			fileList = fileList.OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
+		}*/
 
 		protected void StartFileUpdate()
 		{

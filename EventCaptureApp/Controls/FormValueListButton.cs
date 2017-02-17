@@ -5,11 +5,11 @@ using Xamarin.Forms;
 
 namespace EventCaptureApp.Controls
 {
-	public class FormSwitch: Switch, IFormInputControl
+	public class FormValueListButton: Button, IFormInputControl
 	{
-		public FormSwitch()
+		public FormValueListButton()
 		{
-			this.SetBinding(Switch.IsToggledProperty, "Value");
+			this.SetBinding(Button.TextProperty, "Title");
 		}
 
 		public void SetProperties(FormInput properties)
@@ -17,7 +17,11 @@ namespace EventCaptureApp.Controls
 			this.BindingContext = properties;
 		}
 
-		public void SetCommand(ICommand command, object parameter = null) { }
+		public void SetCommand(ICommand command, object parameter = null)
+		{
+			this.Command = command;
+			this.CommandParameter = parameter;
+		}
 
 		public FormInput GetProperties()
 		{

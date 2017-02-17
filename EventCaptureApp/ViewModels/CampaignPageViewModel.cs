@@ -4,6 +4,8 @@ using EventCaptureApp.Models;
 using System.Linq;
 using Prism.Navigation;
 using EventCaptureApp.Enums;
+using Prism.Commands;
+using System.Threading.Tasks;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -13,11 +15,13 @@ namespace EventCaptureApp.ViewModels
 		private CampaignCategory _selectedCategory;
 		private CampaignDocument _selectedDocument;
 		private int _numberSelectedDocuments = 0;
+		public DelegateCommand CapturePageCommand { get; private set; }
 
 		public CampaignPageViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
 			this.SelectedCategory = this.Campaign.Categories.FirstOrDefault();
+			this.CapturePageCommand = new DelegateCommand(async () => await this.OnCapturePageCommand());
 		}
 
 		public Campaign Campaign
@@ -43,6 +47,11 @@ namespace EventCaptureApp.ViewModels
 					_navigationService.NavigateAsync(AppPages.Document.Name, navParams);
 				}
 			}
+		}
+
+		protected async Task OnCapturePageCommand()
+		{
+			await _navigationService.NavigateAsync(AppPages.LeadCapture.Name);
 		}
 
 		public int NumberSelectedDocuments

@@ -85,7 +85,9 @@ namespace EventCaptureApp.Data
 		{
 			List<FileReference> remoteFileList = new List<FileReference>();
 			FileListRequest request = new FileListRequest() { AuthToken = AppSettings.AuthToken, CampaignId = campaignId };
-			RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl, request);
+			//RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl, request);
+			RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl);
+
 			if (response.RequestSuccess)
 				remoteFileList = JsonConvert.DeserializeObject<List<FileReference>>(response.Content);
 			return AppFiles.Instance.GetFilesToUpdate(remoteFileList);

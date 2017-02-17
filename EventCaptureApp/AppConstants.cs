@@ -5,7 +5,7 @@ namespace EventCaptureApp
 	{
 		public static readonly bool IsLiveBuild = false;
 
-		private const string DevWebserviceUrl = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/";
+		private const string DevWebserviceUrl = "https://ios-dev.proofing5.brayleino.co.uk/blvisitorapp/bleventsapp/";
 		private const string LiveWebserviceUrl = "https://eventcaptureapp.brayleino.co.uk/";
 
 		public static readonly string MobileCenterId = "53ebc8a0-2f9c-4f00-973d-fe0f1bb8ae94";
@@ -30,7 +30,8 @@ namespace EventCaptureApp
 
 		public static string GetCampaignFileListUrl
 		{
-			get { return GetWebserviceCallUrl("GetCampaignFileList"); }
+			//get { return GetWebserviceCallUrl("GetCampaignFileList"); }
+			get { return GetWebserviceCallUrl("campaign1_files.json"); }
 		}
 
 		public static string SaveNewLeadsUrl

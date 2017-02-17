@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows.Input;
 using EventCaptureApp.Enums;
 using EventCaptureApp.Interfaces;
 using EventCaptureApp.Styles;
@@ -15,10 +16,10 @@ namespace EventCaptureApp.Controls
 			this.SetBinding(Entry.TextProperty, "Value");
 		}
 
-		public void SetProperties(FormInput value)
+		public void SetProperties(FormInput properties)
 		{
-			this.BindingContext = value;
-			switch (value.Type)
+			this.BindingContext = properties;
+			switch (properties.Type)
 			{
 				case FormInputType.TextField:
 					this.Keyboard = Keyboard.Default;
@@ -32,6 +33,8 @@ namespace EventCaptureApp.Controls
 			}
 		}
 
+		public void SetCommand(ICommand command, object parameter = null) { }
+
 		public FormInput GetProperties()
 		{
 			return (FormInput)this.BindingContext;
@@ -44,7 +47,10 @@ namespace EventCaptureApp.Controls
 
 		public bool IsValid()
 		{
-			bool validEntry = this.Text.Length >= this.GetProperties().MinCharLength && this.Text.Length <= this.GetProperties().MaxCharLength;
+			bool validEntry = true;
+			if (this.GetProperties().IsRequired)
+				validEntry = this.Text.Length >= this.GetProperties().MinCharLength && this.Text.Length <= this.GetProperties().MaxCharLength;
+			
 			//if (this.GetProperties().Type == FormInputType.EmailField)
 			return validEntry;
 		}

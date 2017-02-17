@@ -31,5 +31,10 @@ namespace EventCaptureApp.Data
 		{
 			get { return _dbConn.Table<Lead>(); }
 		}
+
+		public SQLiteAsyncConnection Connection
+		{
+			get { return _dbConn; }
+		}
 	}
 }
