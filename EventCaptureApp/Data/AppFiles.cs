@@ -73,17 +73,10 @@ namespace EventCaptureApp.Data
 			return DependencyService.Get<IAppFiles>().GetFileModifiedDate(filePath);;
 		}
 
-		public List<FileReference> GetFilesToUpdate(List<FileReference> remoteFileList)
+		public bool IsFileOutOfDate(FileReference file)
 		{
-			List<FileReference> fileUpdateList = new List<FileReference>();
-			foreach (FileReference remoteFile in remoteFileList)
-			{
-				remoteFile.LocalFolderPath = this.DownloadsFolder.Path;
-				DateTime localFileDate = this.GetFileModifiedDate(remoteFile.LocalPath);
-				if (DateTime.Compare(localFileDate, remoteFile.DateModified) < 0)
-					fileUpdateList.Add(remoteFile);
-			}
-			return fileUpdateList.OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
+			DateTime localFileDate = this.GetFileModifiedDate(file.LocalPath);
+			return DateTime.Compare(localFileDate, file.DateModified) < 0;
 		}
 	}
 }

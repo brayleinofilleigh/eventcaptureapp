@@ -5,16 +5,13 @@ using EventCaptureApp.Interfaces;
 using EventCaptureApp.Models;
 using Xamarin.Forms;
 using System.Linq;
+using EventCaptureApp.Enums;
 
 namespace EventCaptureApp.Services
 {
 	public class FileDownloader
 	{
-		public event DownloadErrorDelegate DownloadError;
-		public event DownloadProgressDelegate DownloadProgress;
-		public event DownloadProgressDelegate FileDownloadComplete;
-		public event DownloadProgressDelegate QueueDownloadComplete;
-
+		public event DownloadEventDelegate DownloadEvent;
 		private static FileDownloader _instance;
 		private IFileDownloader _downloader;
 		private List<FileReference> _queuedFiles = new List<FileReference>();
@@ -48,52 +45,51 @@ namespace EventCaptureApp.Services
 			if (_queuedFiles.Any())
 			{
 				this.CurrentFile = _queuedFiles.First();
-				_downloader.DownloadProgress += FileDownloadProgressHandler;
-				_downloader.DownloadError += FileDownloadErrorHandler;
-				_downloader.DownloadComplete += FileDownloadCompleteHandler;
+				_downloader.DownloadEvent += OnFileDownloadEvent;
 				_downloader.DownloadFile(this.CurrentFile.Url, this.CurrentFile.LocalPath);
 			}
 			else {
-				if (this.QueueDownloadComplete != null)
-					this.QueueDownloadComplete(this, this.BytesDownloaded, this.PercentDownloaded);
+				this.DispatchEvent(DownloadEventType.QueueDownloaded);
 			}
 		}
 
 		private void RemoveEventListeners()
 		{
-			_downloader.DownloadProgress -= FileDownloadProgressHandler;
-			_downloader.DownloadError -= FileDownloadErrorHandler;
-			_downloader.DownloadComplete -= FileDownloadCompleteHandler;
+			_downloader.DownloadEvent -= OnFileDownloadEvent;
 		}
 
-		protected void FileDownloadProgressHandler(object sender, long totalBytesWritten, int percentDownloaded)
+		protected void OnFileDownloadEvent(object sender, DownloadEventType type, long totalBytesWritten, int percentDownloaded = 0, int errorCode = 0)
 		{
-			this.UpdateDownloadProgress(totalBytesWritten);
+			switch (type)
+			{
+				case DownloadEventType.Progess:
+					this.UpdateDownloadProgress(totalBytesWritten);
+					break;
+				case DownloadEventType.Error:
+					this.RemoveEventListeners();
+					this.DispatchEvent(DownloadEventType.Error, errorCode);
+					break;
+				case DownloadEventType.FileDownloaded:
+					this.RemoveEventListeners();
+					this.UpdateDownloadProgress(totalBytesWritten);
+					_queuedFiles.Remove(this.CurrentFile);
+					this.DispatchEvent(DownloadEventType.FileDownloaded);
+					this.StartNextFileDownload();
+					break;
+			}
 		}
 
-		protected void FileDownloadErrorHandler(object sender, int errorCode)
-		{
-			this.RemoveEventListeners();
-			if (this.DownloadError != null)
-				this.DownloadError(this, errorCode);
-		}
-
-		protected void FileDownloadCompleteHandler(object sender, long totalBytesWritten, int percentDownloaded)
-		{
-			this.RemoveEventListeners();
-			this.UpdateDownloadProgress(totalBytesWritten);
-			_queuedFiles.Remove(this.CurrentFile);
-			if (this.FileDownloadComplete != null) 
-				this.FileDownloadComplete(this, this.BytesDownloaded, this.PercentDownloaded);
-			this.StartNextFileDownload();
-		}
-
-		private void UpdateDownloadProgress(long totalFileBytesWritten)
+		protected void UpdateDownloadProgress(long totalFileBytesWritten)
 		{
 			this.CurrentFile.BytesWritten = totalFileBytesWritten;
 			this.BytesDownloaded = _bytesWritten + totalFileBytesWritten;
-			if (this.DownloadProgress != null)
-				this.DownloadProgress(this, this.BytesDownloaded, this.PercentDownloaded);
+			this.DispatchEvent(DownloadEventType.Progess);
+		}
+
+		protected void DispatchEvent(DownloadEventType type, int errorCode = 0)
+		{
+			if (this.DownloadEvent != null)
+				this.DownloadEvent(this, type, this.BytesDownloaded, this.PercentDownloaded, errorCode);
 		}
 
 		public FileReference CurrentFile { get; private set; }

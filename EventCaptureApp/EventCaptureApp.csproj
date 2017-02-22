@@ -137,6 +137,7 @@
     <Compile Include="Controls\FormSwitch.cs" />
     <Compile Include="Models\FormInputResult.cs" />
     <Compile Include="Controls\FormValueListButton.cs" />
+    <Compile Include="Enums\DownloadEventType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

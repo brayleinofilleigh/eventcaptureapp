@@ -59,7 +59,6 @@ namespace EventCaptureApp.Data
 		public async Task<bool> SetCurrent(CampaignOverview campaign)
 		{
 			Debug.WriteLine($"Setting Campaign: {campaign.Title}");
-
 			string configFilePath = AppFiles.Instance.GetDownloadedFilePath(campaign.ConfigFileName); 
 			bool configFileExists = await AppFiles.Instance.FileExists(configFilePath);
 			if (configFileExists)
@@ -81,16 +80,23 @@ namespace EventCaptureApp.Data
 			}
 		}
 
-		public async Task<List<FileReference>> GetUpdateFileList(int campaignId)
+		public async Task<List<FileReference>> GetCampaignUpdateFileList(int campaignId)
 		{
-			List<FileReference> remoteFileList = new List<FileReference>();
-			FileListRequest request = new FileListRequest() { AuthToken = AppSettings.AuthToken, CampaignId = campaignId };
+			List<FileReference> fileList = new List<FileReference>();
+			//FileListRequest request = new FileListRequest() { AuthToken = AppSettings.AuthToken, CampaignId = campaignId };
 			//RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl, request);
 			RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl);
 
 			if (response.RequestSuccess)
-				remoteFileList = JsonConvert.DeserializeObject<List<FileReference>>(response.Content);
-			return AppFiles.Instance.GetFilesToUpdate(remoteFileList);
+			{
+				fileList = JsonConvert.DeserializeObject<List<FileReference>>(response.Content);
+				foreach(FileReference file in fileList)
+				{
+					file.LocalFolderPath = AppFiles.Instance.DownloadsFolder.Path;
+					file.IsOutOfDate = AppFiles.Instance.IsFileOutOfDate(file);
+				}
+			}
+			return fileList.Where(x => x.IsOutOfDate == true).OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
 		}
 	}
 

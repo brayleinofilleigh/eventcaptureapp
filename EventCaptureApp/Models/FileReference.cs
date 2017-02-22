@@ -35,6 +35,9 @@ namespace EventCaptureApp.Models
 
 		[JsonIgnore]
 		public long BytesWritten { get; set; } = 0;
+
+		[JsonIgnore]
+		public bool IsOutOfDate { get; set; } = false;
 	}
 }
 

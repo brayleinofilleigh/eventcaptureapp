@@ -1,6 +1,7 @@
 ﻿using System;
 using EventCaptureApp.Delegates;
 using EventCaptureApp.DependencyService.iOS;
+using EventCaptureApp.Enums;
 using EventCaptureApp.Interfaces;
 using Foundation;
 using Xamarin.Forms;
@@ -11,10 +12,7 @@ namespace EventCaptureApp.DependencyService.iOS
 {
 	public class FileDownloader_iOS : NSUrlSessionDownloadDelegate, IFileDownloader
 	{
-		public event DownloadErrorDelegate DownloadError;
-		public event DownloadProgressDelegate DownloadProgress;
-		public event DownloadProgressDelegate DownloadComplete;
-
+		public event DownloadEventDelegate DownloadEvent;
 		private NSUrlSessionDownloadTask _downloadTask;
 		private NSUrlSession _session;
 		private NSFileManager _fileManager;
@@ -36,17 +34,13 @@ namespace EventCaptureApp.DependencyService.iOS
 
 		public override void DidWriteData(NSUrlSession session, NSUrlSessionDownloadTask downloadTask, long bytesWritten, long totalBytesWritten, long totalBytesExpectedToWrite)
 		{
-			if (this.DownloadProgress != null)
-				this.DownloadProgress(this, totalBytesWritten);
+			this.DispatchEvent(DownloadEventType.Progess, totalBytesWritten);
 		}
 
 		public override void DidCompleteWithError(NSUrlSession session, NSUrlSessionTask task, NSError error)
 		{
 			if (error != null)
-			{
-				if (this.DownloadError != null)
-					this.DownloadError(this, Convert.ToInt32(error.Code));
-			}
+				this.DispatchEvent(DownloadEventType.Error, 0, Convert.ToInt32(error.Code));
 		}
 
 		public override void DidFinishDownloading(NSUrlSession session, NSUrlSessionDownloadTask downloadTask, NSUrl location)
@@ -56,8 +50,13 @@ namespace EventCaptureApp.DependencyService.iOS
 			_fileManager.Remove(_localFilePath, out nsError);
 			_fileManager.Move(location.Path, _localFilePath, out nsError);
 			_downloadTask.Dispose();
-			if (this.DownloadComplete != null) 
-				this.DownloadComplete(this, bytesReceived);
+			this.DispatchEvent(DownloadEventType.FileDownloaded, bytesReceived);
+		}
+
+		protected void DispatchEvent(DownloadEventType type, long bytesWritten, int errorCode = 0)
+		{
+			if (this.DownloadEvent != null)
+				this.DownloadEvent(this, type, bytesWritten, 0, errorCode);
 		}
 	}
 }
