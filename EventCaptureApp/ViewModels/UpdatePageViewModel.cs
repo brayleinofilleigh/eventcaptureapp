@@ -8,6 +8,7 @@ using System.Linq;
 using Plugin.Connectivity;
 using EventCaptureApp.Services;
 using Prism.Commands;
+using Prism.Navigation;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -21,19 +22,23 @@ namespace EventCaptureApp.ViewModels
 		private int _currentFileNumber = 1;
 		private int _percentDownloaded = 0;
 		private bool _isUpdatesAvailable = false;
+		private bool _isUpdatesSkippable = false;
+		private INavigationService _navigationService;
+		public DelegateCommand ContinueCommand { get; private set; }
 		public DelegateCommand UpdateCommand { get; private set; }
 
-		public UpdatePageViewModel()
+		public UpdatePageViewModel(INavigationService navigationService)
 		{
+			_navigationService = navigationService;
 			_updateFileList = new List<FileReference>(); 
 			_fileDownloader = FileDownloader.Instance;
-			this.UpdateCommand = new DelegateCommand(StartFileUpdate).ObservesCanExecute((p) => IsUpdatesAvailable);
+			this.ContinueCommand = new DelegateCommand(async () => await OnContinueCommand()).ObservesCanExecute((p) => IsNotBusy);
+			this.UpdateCommand = new DelegateCommand(OnUpdateCommand).ObservesCanExecute((p) => IsNotBusy);
 		}
 
-		public async override void OnNavigatedTo(Prism.Navigation.NavigationParameters parameters)
+		public async override void OnNavigatedTo(NavigationParameters parameters)
 		{
 			_fileDownloader.DownloadEvent += OnFileDownloaderEvent;
-			await Task.Delay(500);
 			if (parameters.ContainsKey(NavigationParameterKeys.Campaign))
 			{
 				this.Campaign = (CampaignOverview)parameters[NavigationParameterKeys.Campaign];
@@ -46,7 +51,7 @@ namespace EventCaptureApp.ViewModels
 				await this.FileUpdateCheck(this.Campaign.Id);
 		}
 
-		public override void OnNavigatedFrom(Prism.Navigation.NavigationParameters parameters)
+		public override void OnNavigatedFrom(NavigationParameters parameters)
 		{
 			_fileDownloader.DownloadEvent -= OnFileDownloaderEvent;
 		}
@@ -60,17 +65,23 @@ namespace EventCaptureApp.ViewModels
 				_updateFileList = await CampaignData.Instance.GetCampaignUpdateFileList(campaignId);
 				_numberFilesDownload = _updateFileList.Count;
 				this.IsUpdatesAvailable = _updateFileList.Any();
-				if (!this.IsUpdatesAvailable)
-					this.Status = "You are up-to-date";
+				this.Status = this.IsUpdatesAvailable ? "Updates available" : "You are up-to-date";
 			}
 			else {
+				this.IsUpdatesAvailable = false;
 				this.Status = "No internet connection found";
 			}
 			this.IsBusy = false;
 		}
 
-		protected void StartFileUpdate()
+		protected async Task OnContinueCommand()
 		{
+			await _navigationService.NavigateAsync(AppPages.Campaign.Name);
+		}
+
+		protected void OnUpdateCommand()
+		{
+			this.IsBusy = true;
 			this.UpdateDownloadStatus();
 			_fileDownloader.DownloadFiles(_updateFileList);
 		}
@@ -90,9 +101,17 @@ namespace EventCaptureApp.ViewModels
 					this.Status = $"Download error - {_fileDownloader.CurrentFile.Name} : {errorCode}";
 					break;
 					case DownloadEventType.QueueDownloaded:
-					this.Status = "Update complete";
+					this.FinaliseUpdate();
 					break;
 			}
+		}
+
+		protected async Task FinaliseUpdate()
+		{
+			this.IsUpdatesAvailable = this.IsBusy = false;
+			this.Status = "Update complete";
+			await CampaignData.Instance.SetCurrent(this.Campaign);
+			await _navigationService.NavigateAsync(AppPages.Campaign.Name);
 		}
 
 		protected void UpdateDownloadStatus()
@@ -109,19 +128,29 @@ namespace EventCaptureApp.ViewModels
 		public string Status
 		{
 			get { return _status; }
-			set { this.SetProperty(ref _status, value); }
+			private set { this.SetProperty(ref _status, value); }
 		}
 
 		public int PercentDownloaded
 		{
 			get { return _percentDownloaded; }
-			set { this.SetProperty(ref _percentDownloaded, value); }
+			private set { this.SetProperty(ref _percentDownloaded, value); }
 		}
 
 		public bool IsUpdatesAvailable
 		{
 			get { return _isUpdatesAvailable; }
-			set { this.SetProperty(ref _isUpdatesAvailable, value); }
+			private set 
+			{ 
+				this.SetProperty(ref _isUpdatesAvailable, value);
+				this.IsUpdatesSkippable = !value;
+			}
+		}
+
+		public bool IsUpdatesSkippable
+		{
+			get { return _isUpdatesSkippable; }
+			private set { this.SetProperty(ref _isUpdatesSkippable, value); }
 		}
 	}
 }
