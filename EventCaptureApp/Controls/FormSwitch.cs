@@ -24,11 +24,20 @@ namespace EventCaptureApp.Controls
 			return (FormInput)this.BindingContext;
 		}
 
-		public void Highlighted(bool value) { }
+		public void InvalidHighlight(bool value) { }
 
 		public bool IsValid()
 		{
 			return true;
 		}
+
+		public void SetNextInputControl(IFormInputControl inputControl) { }
+
+		public IFormInputControl GetNextInputControl()
+		{
+			return null;
+		}
+
+		public void SetFocus() { }
 	}
 }

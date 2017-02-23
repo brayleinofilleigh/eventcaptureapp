@@ -30,5 +30,11 @@ namespace EventCaptureApp
 		{
 			get { return this.SelectedDocuments.Select(x => x.Id).ToList(); }
 		}
+
+		public void ClearSelectedDocuments()
+		{
+			foreach (CampaignDocument document in this.SelectedDocuments)
+				document.IsSelected = false;
+		}
 	}
 }

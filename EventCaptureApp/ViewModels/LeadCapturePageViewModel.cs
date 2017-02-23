@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using EventCaptureApp.Controls;
 using EventCaptureApp.Data;
 using EventCaptureApp.Interfaces;
 using EventCaptureApp.Models;
-using Newtonsoft.Json;
 using Prism.Commands;
-using System.Linq;
 using System.Threading.Tasks;
+using EventCaptureApp.Enums;
+using Prism.Navigation;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -19,21 +17,29 @@ namespace EventCaptureApp.ViewModels
 		private bool _isValueListShown = false;
 		private IFormInputControl _selectedInputControl;
 		private string _selectedValueListItem;
+		private INavigationService _navigationService;
 		public DelegateCommand<IFormInputControl> ShowValueListCommand { get; private set; }
 		public DelegateCommand SubmitCommand { get; private set; }
 
-		public LeadCapturePageViewModel()
+		public LeadCapturePageViewModel(INavigationService navigationService)
 		{
+			_navigationService = navigationService;
 			_inputControls = new List<IFormInputControl>();
 			this.ShowValueListCommand = new DelegateCommand<IFormInputControl>(this.OnShowValueListCommand);
 			this.SubmitCommand = new DelegateCommand(async () => await this.OnSubmitCommand());
+			this.AddFormInputControls();
+		}
 
+		protected void AddFormInputControls()
+		{
+			IFormInputControl prevFormInput = null;
 			foreach (FormInput formInput in this.LeadCaptureForm.FormInputs)
 			{
 				IFormInputControl inputControl = AppFormInputs.GetInputControlByType(formInput.Type, formInput);
-				if (formInput.Type == Enums.FormInputType.ScrollList)
-					inputControl.SetCommand(this.ShowValueListCommand, inputControl);
+				if (prevFormInput != null) prevFormInput.SetNextInputControl(inputControl);
+				if (formInput.Type == FormInputType.ScrollList) inputControl.SetCommand(this.ShowValueListCommand, inputControl);
 				_inputControls.Add(inputControl);
+				prevFormInput = inputControl;
 			}
 		}
 
@@ -93,7 +99,7 @@ namespace EventCaptureApp.ViewModels
 				this.IsBusy = true;
 				await LeadsData.Instance.SaveLead(this.Campaign.Id, formResults.Item2, this.Campaign.SelectedDocumentIds);
 				this.IsBusy = false;
-				Debug.WriteLine("Save complete");
+				await _navigationService.NavigateAsync(AppPages.LeadSubmitted.Name);
 			}
 		}
 

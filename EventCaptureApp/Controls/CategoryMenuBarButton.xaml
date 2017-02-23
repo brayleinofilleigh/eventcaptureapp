@@ -6,7 +6,7 @@
 		HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HighlightColor="Fuchsia">
 	<ContentView.Content>
 		<Grid>
-			<Label Text="{Binding Title}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+			<Label Text="{Binding Title}" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
 		</Grid>
 	</ContentView.Content>
 </controls:ContentViewBase>

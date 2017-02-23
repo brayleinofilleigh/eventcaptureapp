@@ -12,13 +12,11 @@
 				<RowDefinition Height="1*"/>
 				<RowDefinition Height="9*"/>
 			</Grid.RowDefinitions>
-			<StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Padding="50,0,50,0">
-				<Label x:Name="Select"/>
-				<Switch IsToggled="{Binding Document.IsSelected}"/>
+			<StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="Fill" Padding="50,0,50,0" BackgroundColor="Silver">
+				<Label Text="Selected" TextColor="White" VerticalOptions="Fill" VerticalTextAlignment="Center"/>
+				<Switch IsToggled="{Binding Document.IsSelected}" VerticalOptions="Center"/>
 			</StackLayout>
-			<StackLayout Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-				<Label Text="{Binding Document.FileName}"/>
-			</StackLayout>
+			<WebView Grid.Row="1" Source="{Binding DocumentFilePath}" HorizontalOptions="Fill" VerticalOptions="Fill"/>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

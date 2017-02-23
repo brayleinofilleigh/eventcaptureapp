@@ -14,7 +14,7 @@ namespace EventCaptureApp.Views
 			InitializeComponent();
 			LeadCapturePageViewModel viewModel = (LeadCapturePageViewModel)this.BindingContext;
 			foreach (IFormInputControl inputControl in viewModel.InputControls)
-				this.contentLayout.Children.Add((View)inputControl);
+				this.inputControlsLayout.Children.Add((View)inputControl);
 		}
 	}
 }

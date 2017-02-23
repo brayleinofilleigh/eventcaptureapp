@@ -203,6 +203,8 @@
     <Compile Include="DependencyServices\FileDownloader_iOS.cs" />
     <Compile Include="DependencyServices\AppFiles_iOS.cs" />
     <Compile Include="Helpers\DateUtils.cs" />
+    <Compile Include="CustomRenderers\TextEntryRenderer.cs" />
+    <Compile Include="CustomRenderers\ButtonBaseRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

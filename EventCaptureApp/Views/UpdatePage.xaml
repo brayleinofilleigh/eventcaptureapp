@@ -13,8 +13,8 @@
 			<Label Text="{Binding PercentDownloaded, StringFormat='Downloaded: {0}%'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
 			<StackLayout Orientation="Horizontal" Spacing="20">
 				<controls:StandardButton Text="Cancel" WidthRequest="100" Command="{Binding ContinueCommand}"/>
-				<controls:StandardButton Text="Update" WidthRequest="100" IsVisible="{Binding IsUpdatesAvailable}" Command="{Binding UpdateCommand}"/>
-				<controls:StandardButton Text="Continue >" WidthRequest="100" IsVisible="{Binding IsUpdatesSkippable}" Command="{Binding ContinueCommand}"/>
+				<controls:StandardButton Text="Update" WidthRequest="100" IsVisible="{Binding UpdatesAvailable}" Command="{Binding UpdateCommand}"/>
+				<controls:StandardButton Text="Continue >" WidthRequest="100" IsVisible="{Binding UpdatesSkippable}" Command="{Binding ContinueCommand}"/>
 			</StackLayout>
 		</StackLayout>
 	</ContentPage.Content>

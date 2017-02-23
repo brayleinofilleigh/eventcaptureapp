@@ -2,18 +2,28 @@
 using System.Diagnostics;
 using System.Windows.Input;
 using EventCaptureApp.Enums;
+using EventCaptureApp.Helpers;
 using EventCaptureApp.Interfaces;
 using EventCaptureApp.Styles;
 using Xamarin.Forms;
 
 namespace EventCaptureApp.Controls
 {
-	public class TextEntry: Entry, IFormInputControl
+	public class TextEntry: Entry, IFormInputControl, IDisposable
 	{
+		private IFormInputControl _nextInputControl;
+
 		public TextEntry()
 		{
 			this.SetBinding(Entry.PlaceholderProperty, "Title");
 			this.SetBinding(Entry.TextProperty, "Value");
+			this.Completed += OnCompleteEvent;
+		}
+
+		protected void OnCompleteEvent(object sender, EventArgs e)
+		{
+			if (this.GetNextInputControl() != null)
+				this.GetNextInputControl().SetFocus();
 		}
 
 		public void SetProperties(FormInput properties)
@@ -40,19 +50,48 @@ namespace EventCaptureApp.Controls
 			return (FormInput)this.BindingContext;
 		}
 
-		public void Highlighted(bool value)
+		public void InvalidHighlight(bool value)
 		{
-			this.BackgroundColor = value ? AppColors.Blue : AppColors.White;
+			this.BackgroundColor = value ? AppColors.White : Color.Aqua;
 		}
 
 		public bool IsValid()
 		{
 			bool validEntry = true;
 			if (this.GetProperties().IsRequired)
-				validEntry = this.Text.Length >= this.GetProperties().MinCharLength && this.Text.Length <= this.GetProperties().MaxCharLength;
-			
-			//if (this.GetProperties().Type == FormInputType.EmailField)
+			{
+				switch (this.GetProperties().Type)
+				{
+					case FormInputType.EmailField:
+						validEntry = RegexHelper.IsValidEmail(this.Text);
+						break;
+					default:
+						validEntry = this.Text.Length >= this.GetProperties().MinCharLength && this.Text.Length <= this.GetProperties().MaxCharLength;
+						break;
+				}
+			}
+			this.InvalidHighlight(validEntry);
 			return validEntry;
+		}
+
+		public void SetNextInputControl(IFormInputControl inputControl)
+		{
+			_nextInputControl = inputControl;
+		}
+
+		public IFormInputControl GetNextInputControl()
+		{
+			return _nextInputControl;
+		}
+
+		public void SetFocus()
+		{
+			this.Focus();
+		}
+
+		public void Dispose()
+		{
+			this.Completed -= OnCompleteEvent;
 		}
 	}
 }

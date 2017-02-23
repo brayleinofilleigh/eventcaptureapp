@@ -50,7 +50,7 @@ namespace EventCaptureApp
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 			}
 			*/
-			await this.NavigationService.NavigateAsync(AppPages.Update.Name);
+			await this.NavigationService.NavigateAsync(AppPages.CampaignList.Name);
 		}
 
 		protected override void RegisterTypes()
@@ -63,6 +63,7 @@ namespace EventCaptureApp
 			this.Container.RegisterTypeForNavigation<CampaignPage>();
 			this.Container.RegisterTypeForNavigation<DocumentPage>();
 			this.Container.RegisterTypeForNavigation<LeadCapturePage>();
+			this.Container.RegisterTypeForNavigation<LeadSubmittedPage>();
 		}
 
 		protected override void OnStart()

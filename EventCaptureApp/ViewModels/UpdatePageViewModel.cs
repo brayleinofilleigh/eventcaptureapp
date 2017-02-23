@@ -21,8 +21,8 @@ namespace EventCaptureApp.ViewModels
 		private int _numberFilesDownload = 0;
 		private int _currentFileNumber = 1;
 		private int _percentDownloaded = 0;
-		private bool _isUpdatesAvailable = false;
-		private bool _isUpdatesSkippable = false;
+		private bool _updatesAvailable = false;
+		private bool _updatesSkippable = true;
 		private INavigationService _navigationService;
 		public DelegateCommand ContinueCommand { get; private set; }
 		public DelegateCommand UpdateCommand { get; private set; }
@@ -64,11 +64,11 @@ namespace EventCaptureApp.ViewModels
 			{
 				_updateFileList = await CampaignData.Instance.GetCampaignUpdateFileList(campaignId);
 				_numberFilesDownload = _updateFileList.Count;
-				this.IsUpdatesAvailable = _updateFileList.Any();
-				this.Status = this.IsUpdatesAvailable ? "Updates available" : "You are up-to-date";
+				this.UpdatesAvailable = _updateFileList.Any();
+				this.Status = this.UpdatesAvailable ? "Updates available" : "You are up-to-date";
 			}
 			else {
-				this.IsUpdatesAvailable = false;
+				this.UpdatesAvailable = false;
 				this.Status = "No internet connection found";
 			}
 			this.IsBusy = false;
@@ -108,8 +108,8 @@ namespace EventCaptureApp.ViewModels
 
 		protected async Task FinaliseUpdate()
 		{
-			this.IsUpdatesAvailable = this.IsBusy = false;
 			this.Status = "Update complete";
+			this.UpdatesAvailable = this.IsBusy = false;
 			await CampaignData.Instance.SetCurrent(this.Campaign);
 			await _navigationService.NavigateAsync(AppPages.Campaign.Name);
 		}
@@ -137,20 +137,20 @@ namespace EventCaptureApp.ViewModels
 			private set { this.SetProperty(ref _percentDownloaded, value); }
 		}
 
-		public bool IsUpdatesAvailable
+		public bool UpdatesAvailable
 		{
-			get { return _isUpdatesAvailable; }
+			get { return _updatesAvailable; }
 			private set 
 			{ 
-				this.SetProperty(ref _isUpdatesAvailable, value);
-				this.IsUpdatesSkippable = !value;
+				this.SetProperty(ref _updatesAvailable, value);
+				this.UpdatesSkippable = !value;
 			}
 		}
 
-		public bool IsUpdatesSkippable
+		public bool UpdatesSkippable
 		{
-			get { return _isUpdatesSkippable; }
-			private set { this.SetProperty(ref _isUpdatesSkippable, value); }
+			get { return _updatesSkippable; }
+			private set { this.SetProperty(ref _updatesSkippable, value); }
 		}
 	}
 }

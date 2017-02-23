@@ -16,9 +16,10 @@ namespace EventCaptureApp
 		public static readonly AppPageReference Campaign = new AppPageReference(typeof(CampaignPage));
 		public static readonly AppPageReference Document = new AppPageReference(typeof(DocumentPage));
 		public static readonly AppPageReference LeadCapture = new AppPageReference(typeof(LeadCapturePage));
+		public static readonly AppPageReference LeadSubmitted = new AppPageReference(typeof(LeadSubmittedPage));
 
 		public static readonly List<AppPageReference> Pages = new List<AppPageReference> {
-			Launch, Login, CampaignList, Update, Campaign, Document, LeadCapture
+			Launch, Login, CampaignList, Update, Campaign, Document, LeadCapture, LeadSubmitted
 		};
 	}
 }

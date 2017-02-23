@@ -8,7 +8,10 @@ namespace EventCaptureApp.Interfaces
 		void SetProperties(FormInput properties);
 		void SetCommand(ICommand command, object parameter = null);
 		FormInput GetProperties();
-		void Highlighted(bool value);
+		void InvalidHighlight(bool value);
 		bool IsValid();
+		void SetNextInputControl(IFormInputControl inputControl);
+		void SetFocus();
+		IFormInputControl GetNextInputControl();
 	}
 }

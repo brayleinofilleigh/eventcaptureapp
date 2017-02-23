@@ -7,9 +7,10 @@ namespace EventCaptureApp.Controls
 	{
 		public StandardButton()
 		{
-			this.BackgroundColor = Color.Teal;
-			this.TextColor = Color.White;
-			this.BorderRadius = 5;
+			this.TextColor = this.BorderColor = Color.Teal;
+			this.BorderWidth = 1.0;
+			this.Padding = new Thickness(20, 0, 20, 0);
+			this.HorizontalOptions = LayoutOptions.CenterAndExpand;
 		}
 	}
 }

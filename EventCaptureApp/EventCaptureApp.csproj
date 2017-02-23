@@ -54,6 +54,9 @@
     <EmbeddedResource Include="Views\LeadCapturePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\LeadSubmittedPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -138,6 +141,11 @@
     <Compile Include="Models\FormInputResult.cs" />
     <Compile Include="Controls\FormValueListButton.cs" />
     <Compile Include="Enums\DownloadEventType.cs" />
+    <Compile Include="Helpers\RegexHelper.cs" />
+    <Compile Include="Views\LeadSubmittedPage.xaml.cs">
+      <DependentUpon>LeadSubmittedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LeadSubmittedPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
