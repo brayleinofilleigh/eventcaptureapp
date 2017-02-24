@@ -89,6 +89,12 @@ namespace EventCaptureApp.Controls
 			this.Focus();
 		}
 
+		public IFormInputControl NextInputControl
+		{
+			get { return this.GetNextInputControl(); }
+			set { this.SetNextInputControl(value); }
+		}
+
 		public void Dispose()
 		{
 			this.Completed -= OnCompleteEvent;

@@ -21,7 +21,7 @@ namespace EventCaptureApp.ViewModels
 		public LoginPageViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
-			this.SubmitCommand = new DelegateCommand(async() => await SubmitDetails()).ObservesCanExecute((p) => IsFormValid);
+			this.SubmitCommand = new DelegateCommand(async() => await OnSubmitCommand()).ObservesCanExecute((p) => IsFormValid);
 		}
 
 		public string EmailAddress
@@ -55,7 +55,7 @@ namespace EventCaptureApp.ViewModels
 			this.IsFormValid = this.EmailAddress.Length > 2 && this.Password.Length > 2;
 		}
 
-		public async Task SubmitDetails()
+		public async Task OnSubmitCommand()
 		{
 			this.IsBusy = true;
 			AuthResponse response = await AuthService.RequestAuthToken(EmailAddress, Password);

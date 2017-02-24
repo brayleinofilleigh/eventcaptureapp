@@ -152,6 +152,7 @@
     <Compile Include="Controls\AppHeaderBar.xaml.cs">
       <DependentUpon>AppHeaderBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\AdminData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
