@@ -33,7 +33,6 @@ namespace EventCaptureApp
 			await Task.Delay(LaunchDelayTime);
 			Debug.WriteLine(AppFiles.Instance.LocalStorageFolder.Path);
 			Debug.WriteLine($"Current Campaign Id: {AppSettings.CurrentCampaignId}");
-			//Debug.WriteLine(TestData.GetFileList());
 
 			/*
 			if (string.IsNullOrEmpty(AppSettings.AuthToken))
@@ -50,7 +49,7 @@ namespace EventCaptureApp
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 			}
 			*/
-			await this.NavigationService.NavigateAsync(AppPages.CampaignList.Name);
+			await this.NavigationService.NavigateAsync(AppPages.Campaign.Name);
 		}
 
 		protected override void RegisterTypes()

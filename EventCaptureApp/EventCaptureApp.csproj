@@ -57,6 +57,9 @@
     <EmbeddedResource Include="Views\LeadSubmittedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AppHeaderBar.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -146,6 +149,9 @@
       <DependentUpon>LeadSubmittedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LeadSubmittedPageViewModel.cs" />
+    <Compile Include="Controls\AppHeaderBar.xaml.cs">
+      <DependentUpon>AppHeaderBar.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

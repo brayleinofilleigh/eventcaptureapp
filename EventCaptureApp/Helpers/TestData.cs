@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EventCaptureApp.Models;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace EventCaptureApp
 {
@@ -66,6 +67,11 @@ namespace EventCaptureApp
 				Title = "Campaign 1",
 				DateModified = DateTime.Now,
 				ConfigFileName = "campaign1.json",
+				LogoFileName = "campaign1_logo.png",
+				HeaderBgColor = "#49b0d6",
+				HeaderTextColor = "#ffffff",
+				ButtonBorderColor = "#49b0d6",
+				ButtonTextColor = "#49b0d6",
 				Categories = new List<CampaignCategory>() {
 					new CampaignCategory() {
 						Id = 1,

@@ -7,6 +7,16 @@ namespace EventCaptureApp
 {
 	public class Campaign: CampaignOverview
 	{
+		public string LogoFileName { get; set; } = string.Empty;
+
+		public string HeaderBgColor { get; set; } = "#ffffff";
+
+		public string HeaderTextColor { get; set; } = "#000000";
+
+		public string ButtonBorderColor { get; set; } = "#000000";
+
+		public string ButtonTextColor { get; set; } = "#000000";
+
 		public List<CampaignCategory> Categories { get; set; } = new List<CampaignCategory>();
 
 		public LeadCaptureForm LeadCaptureForm { get; set; } = new LeadCaptureForm();

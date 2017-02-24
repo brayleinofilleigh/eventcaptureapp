@@ -16,11 +16,11 @@ namespace EventCaptureApp.ViewModels
 		{
 			_navigationService = navigationService;
 			this.HomeCommand = new DelegateCommand(async () => await this.OnHomeCommand());
-			this.Campaign.ClearSelectedDocuments();
 		}
 
 		protected async Task OnHomeCommand()
 		{
+			this.Campaign.ClearSelectedDocuments();
 			await _navigationService.NavigateAsync(AppPages.Campaign.Name);
 		}
 
