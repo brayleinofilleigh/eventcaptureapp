@@ -12,6 +12,12 @@ namespace EventCaptureApp
 		{
 		}
 
+		public static string GetAuthResponse()
+		{
+			AuthRequestResponse response = new AuthRequestResponse() { AuthToken = Guid.NewGuid().ToString() };
+			return JsonConvert.SerializeObject(response);
+		}
+
 		public static string GetFileList()
 		{
 			List<FileReference> files = new List<FileReference>()

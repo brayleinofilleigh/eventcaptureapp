@@ -32,9 +32,9 @@ namespace EventCaptureApp
 			await DataManager.Instance.Init();
 			await Task.Delay(LaunchDelayTime);
 			Debug.WriteLine(AppFiles.Instance.LocalStorageFolder.Path);
-			Debug.WriteLine($"Auth Token: {AppSettings.AuthToken}");
-			Debug.WriteLine($"Current Campaign Id: {AppSettings.CurrentCampaignId}");
-
+			Debug.WriteLine($"Auth Token: {AdminData.Instance.AuthToken}");
+			Debug.WriteLine($"Current Campaign Id: {CampaignData.Instance.CurrentCampaignId}");
+			/*
 			if (AdminData.Instance.IsAuthenticated)
 			{
 				if (CampaignData.Instance.Current == null)
@@ -48,7 +48,8 @@ namespace EventCaptureApp
 			else {
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 			}
-			//await this.NavigationService.NavigateAsync(AppPages.Campaign.Name);
+			*/
+			await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 		}
 
 		protected override void RegisterTypes()

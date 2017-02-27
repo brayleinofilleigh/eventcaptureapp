@@ -109,7 +109,9 @@ namespace EventCaptureApp.ViewModels
 			foreach (IFormInputControl inputControl in this.InputControls)
 			{
 				inputResults.Add( new FormInputResult() { Id = inputControl.GetProperties().Id, Value = inputControl.GetProperties().Value } );
-				if (!inputControl.IsValid()) validForm = false;
+				bool validEntry = inputControl.GetIsEntryValid();
+				inputControl.SetAsInvalid(!validEntry);
+				if (!validEntry) validForm = false;
 			}
 			return new Tuple<bool, List<FormInputResult>>(validForm, inputResults);
 		}

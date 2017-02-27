@@ -24,9 +24,9 @@ namespace EventCaptureApp.Controls
 			return (FormInput)this.BindingContext;
 		}
 
-		public void InvalidHighlight(bool value) { }
+		public void SetAsInvalid(bool value) { }
 
-		public bool IsValid()
+		public bool GetIsEntryValid()
 		{
 			return true;
 		}

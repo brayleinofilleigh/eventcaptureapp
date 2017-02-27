@@ -11,6 +11,7 @@ namespace EventCaptureApp.Controls
 {
 	public class TextEntry: Entry, IFormInputControl, IDisposable
 	{
+		public static readonly BindableProperty HighlightAsInvalidProperty = BindableProperty.Create("HighlightAsInvalid", typeof(bool), typeof(TextEntry), false, propertyChanged: OnHighlightAsInvalidChanged);
 		private IFormInputControl _nextInputControl;
 
 		public TextEntry()
@@ -26,9 +27,28 @@ namespace EventCaptureApp.Controls
 				this.GetNextInputControl().SetFocus();
 		}
 
+		public bool HighlightAsInvalid
+		{
+			get { return (bool)GetValue(HighlightAsInvalidProperty); }
+			set { SetValue(HighlightAsInvalidProperty, value); }
+		}
+
+		private static void OnHighlightAsInvalidChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (newValue != null)
+			{
+				Debug.WriteLine(newValue);
+				TextEntry textEntry = (TextEntry)bindable;
+				textEntry.BackgroundColor = (bool)newValue ? Color.Aqua : AppColors.White;
+			}
+		}
+
 		public void SetProperties(FormInput properties)
 		{
 			this.BindingContext = properties;
+			this.IsRequired = properties.IsRequired;
+			this.MinCharLength = properties.MinCharLength;
+			this.MaxCharLength = properties.MaxCharLength;
 			switch (properties.Type)
 			{
 				case FormInputType.TextField:
@@ -50,27 +70,25 @@ namespace EventCaptureApp.Controls
 			return (FormInput)this.BindingContext;
 		}
 
-		public void InvalidHighlight(bool value)
+		public void SetAsInvalid(bool value)
 		{
-			this.BackgroundColor = value ? AppColors.White : Color.Aqua;
+			this.HighlightAsInvalid = value;
 		}
 
-		public bool IsValid()
+		public bool GetIsEntryValid()
 		{
 			bool validEntry = true;
-			if (this.GetProperties().IsRequired)
+			if (this.IsRequired)
 			{
-				switch (this.GetProperties().Type)
+				if (this.Keyboard == Keyboard.Email)
 				{
-					case FormInputType.EmailField:
-						validEntry = RegexHelper.IsValidEmail(this.Text);
-						break;
-					default:
-						validEntry = this.Text.Length >= this.GetProperties().MinCharLength && this.Text.Length <= this.GetProperties().MaxCharLength;
-						break;
+					validEntry = RegexHelper.IsValidEmail(this.Text);
+				}
+				else
+				{
+					validEntry = this.Text.Length >= this.GetProperties().MinCharLength && this.Text.Length <= this.GetProperties().MaxCharLength;
 				}
 			}
-			this.InvalidHighlight(validEntry);
 			return validEntry;
 		}
 
@@ -94,6 +112,12 @@ namespace EventCaptureApp.Controls
 			get { return this.GetNextInputControl(); }
 			set { this.SetNextInputControl(value); }
 		}
+
+		public int MinCharLength { get; set; } = 1;
+
+		public int MaxCharLength { get; set; } = int.MaxValue;
+
+		public bool IsRequired { get; set; } = false;
 
 		public void Dispose()
 		{

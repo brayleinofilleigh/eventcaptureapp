@@ -8,11 +8,13 @@ using PCLStorage;
 using System.Linq;
 using System.Diagnostics;
 using Plugin.Connectivity;
+using Plugin.Settings;
 
 namespace EventCaptureApp.Data
 {
 	public class CampaignData
 	{
+		private static readonly string CurrentCampaignIdKey = "currentCampaignId";
 		private static CampaignData _instance;
 		private List<CampaignOverview> _campaigns = new List<CampaignOverview>();
 		private Campaign _current;
@@ -33,7 +35,7 @@ namespace EventCaptureApp.Data
 			if (!string.IsNullOrEmpty(content))
 			{
 				_campaigns = JsonConvert.DeserializeObject<List<CampaignOverview>>(content);
-				CampaignOverview campaign = _campaigns.Where(x => x.Id == AppSettings.CurrentCampaignId).FirstOrDefault();
+				CampaignOverview campaign = _campaigns.Where(x => x.Id == this.CurrentCampaignId).FirstOrDefault();
 				if (campaign != null)
 					await this.SetCurrent(campaign);
 			}
@@ -43,7 +45,7 @@ namespace EventCaptureApp.Data
 		{
 			if (CrossConnectivity.Current.IsConnected)
 			{
-				//RequestModelBase request = new RequestModelBase { AuthToken = AppSettings.AuthToken };
+				//RequestModelBase request = new RequestModelBase { AuthToken = AdminData.Instance.AuthToken };
 				//RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignsUrl, request);
 				RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignsUrl);
 
@@ -58,7 +60,6 @@ namespace EventCaptureApp.Data
 
 		public async Task<bool> SetCurrent(CampaignOverview campaign)
 		{
-			Debug.WriteLine($"Setting Campaign: {campaign.Title}");
 			string configFilePath = AppFiles.Instance.GetDownloadedFilePath(campaign.ConfigFileName); 
 			bool configFileExists = await AppFiles.Instance.FileExists(configFilePath);
 			if (configFileExists)
@@ -76,14 +77,14 @@ namespace EventCaptureApp.Data
 			private set 
 			{
 				_current = value;
-				AppSettings.CurrentCampaignId = value.Id;
+				this.CurrentCampaignId = value.Id;
 			}
 		}
 
 		public async Task<List<FileReference>> GetCampaignUpdateFileList(int campaignId)
 		{
 			List<FileReference> fileList = new List<FileReference>();
-			//FileListRequest request = new FileListRequest() { AuthToken = AppSettings.AuthToken, CampaignId = campaignId };
+			//FileListRequest request = new FileListRequest() { AuthToken = AdminData.Instance.AuthToken, CampaignId = campaignId };
 			//RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl, request);
 			RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignFileListUrl);
 
@@ -98,9 +99,15 @@ namespace EventCaptureApp.Data
 			}
 			return fileList.Where(x => x.IsOutOfDate == true).OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
 		}
+
+		public int CurrentCampaignId
+		{
+			get { return CrossSettings.Current.GetValueOrDefault<int>(CurrentCampaignIdKey, 0); }
+			private set { CrossSettings.Current.AddOrUpdateValue<int>(CurrentCampaignIdKey, value); }
+		}
 	}
 
-	public class FileListRequest : RequestModelBase
+	public class FileListRequest : RestRequestBase
 	{
 		public int CampaignId { get; set; } = 0;
 	}

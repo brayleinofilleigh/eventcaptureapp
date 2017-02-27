@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage Title="Update Campaign" xmlns="http://xamarin.com/schemas/2014/forms"
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 		xmlns:controls="clr-namespace:EventCaptureApp.Controls;assembly=EventCaptureApp"
@@ -14,7 +14,7 @@
 			<StackLayout Orientation="Horizontal" Spacing="20">
 				<controls:StandardButton Text="Cancel" WidthRequest="100" Command="{Binding ContinueCommand}"/>
 				<controls:StandardButton Text="Update" WidthRequest="100" IsVisible="{Binding UpdatesAvailable}" Command="{Binding UpdateCommand}"/>
-				<controls:StandardButton Text="Continue >" WidthRequest="100" IsVisible="{Binding UpdatesSkippable}" Command="{Binding ContinueCommand}"/>
+				<controls:StandardButton Text="Next >" WidthRequest="100" IsVisible="{Binding UpdatesSkippable}" Command="{Binding ContinueCommand}"/>
 			</StackLayout>
 		</StackLayout>
 	</ContentPage.Content>

@@ -34,7 +34,8 @@ namespace EventCaptureApp.Data
 			List<Lead> leads = await this.GetUnsyncedLeads();
 			if (leads.Any())
 			{
-				RestResponse syncResponse = await RestService.Instance.ExecRequest(AppConstants.SaveNewLeadsUrl, leads);
+				LeadSyncRequest leadSycnRequest = new LeadSyncRequest() { AuthToken = AdminData.Instance.AuthToken, Leads = leads };
+				RestResponse syncResponse = await RestService.Instance.ExecRequest(AppConstants.SaveNewLeadsUrl, leadSycnRequest);
 				syncSuccess = syncResponse.RequestSuccess;
 			}
 			leads.Clear();
@@ -53,5 +54,10 @@ namespace EventCaptureApp.Data
 			int insertId = await LocalDatabase.Instance.Connection.InsertAsync(lead);
 			return insertId;
 		}
+	}
+
+	public class LeadSyncRequest: RestRequestBase
+	{
+		public List<Lead> Leads { get; set; } = new List<Lead>();
 	}
 }

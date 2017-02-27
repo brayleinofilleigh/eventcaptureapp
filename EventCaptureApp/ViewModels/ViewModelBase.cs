@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Navigation;
 
@@ -21,6 +22,11 @@ namespace EventCaptureApp.ViewModels
 		public virtual void OnNavigatedTo(NavigationParameters parameters)
 		{
 			//
+		}
+
+		public async Task DisplayAlert(string title, string message, string cancel)
+		{
+			await App.Current.MainPage.DisplayAlert(title, message, cancel);
 		}
 
 		public bool IsBusy 

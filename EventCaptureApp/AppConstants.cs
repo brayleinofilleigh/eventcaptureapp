@@ -19,7 +19,8 @@ namespace EventCaptureApp
 
 		public static string GetAuthTokenUrl
 		{
-			get { return GetWebserviceCallUrl("GetAuthToken"); }
+			//get { return GetWebserviceCallUrl("GetAuthToken"); }
+			get { return GetWebserviceCallUrl("auth_response.json"); }
 		}
 
 		public static string GetCampaignsUrl

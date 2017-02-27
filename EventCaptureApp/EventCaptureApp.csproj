@@ -93,10 +93,8 @@
     <Compile Include="Data\CampaignData.cs" />
     <Compile Include="Models\CampaignCategory.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Models\RequestModelBase.cs" />
-    <Compile Include="Models\ResponseModelBase.cs" />
+    <Compile Include="Models\RestBaseModels.cs" />
     <Compile Include="Data\AppSettings.cs" />
-    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +151,7 @@
       <DependentUpon>AppHeaderBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\AdminData.cs" />
+    <Compile Include="Models\AuthModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
