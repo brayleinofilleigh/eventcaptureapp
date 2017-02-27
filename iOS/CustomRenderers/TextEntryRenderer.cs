@@ -22,6 +22,7 @@ namespace EventCaptureApp.iOS
 			if (this.Element != null)
 			{
 				TextEntry textEntry = (TextEntry)this.Element;
+				this.Control.AutocorrectionType = UIKit.UITextAutocorrectionType.No;
 				if (textEntry.GetNextInputControl() == null)
 				{
 					this.Control.ReturnKeyType = UIKit.UIReturnKeyType.Done;

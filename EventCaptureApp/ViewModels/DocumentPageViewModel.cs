@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using EventCaptureApp.Data;
 using EventCaptureApp.Enums;
 using EventCaptureApp.Models;

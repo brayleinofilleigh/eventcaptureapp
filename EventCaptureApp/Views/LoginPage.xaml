@@ -9,7 +9,7 @@
 			<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 				<Label Text="Login Page"/>
 				<controls:TextEntry x:Name="emailEntry" WidthRequest="300" Placeholder="Email Address" Text="{Binding EmailAddress}" Keyboard="Email" HighlightAsInvalid="{Binding IsEmailAddressInvalid}" NextInputControl="{x:Reference passwordEntry}"/>
-				<controls:TextEntry x:Name="passwordEntry" WidthRequest="300" Placeholder="Password" Text="{Binding Password}" MinCharLength="8" HighlightAsInvalid="{Binding IsPasswordInvalid}" />
+				<controls:TextEntry x:Name="passwordEntry" WidthRequest="300" Placeholder="Password" Text="{Binding Password}" IsPassword="true" MinCharLength="8" HighlightAsInvalid="{Binding IsPasswordInvalid}" />
 				<Button Text="Submit" Command="{Binding SubmitCommand}"/>
 				<ActivityIndicator IsRunning="{Binding IsBusy}"/>
 			</StackLayout>

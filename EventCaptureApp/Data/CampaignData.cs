@@ -100,10 +100,10 @@ namespace EventCaptureApp.Data
 			return fileList.Where(x => x.IsOutOfDate == true).OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
 		}
 
-		public int CurrentCampaignId
+		private int CurrentCampaignId
 		{
 			get { return CrossSettings.Current.GetValueOrDefault<int>(CurrentCampaignIdKey, 0); }
-			private set { CrossSettings.Current.AddOrUpdateValue<int>(CurrentCampaignIdKey, value); }
+			set { CrossSettings.Current.AddOrUpdateValue<int>(CurrentCampaignIdKey, value); }
 		}
 	}
 

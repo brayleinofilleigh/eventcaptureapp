@@ -33,7 +33,6 @@ namespace EventCaptureApp
 			await Task.Delay(LaunchDelayTime);
 			Debug.WriteLine(AppFiles.Instance.LocalStorageFolder.Path);
 			Debug.WriteLine($"Auth Token: {AdminData.Instance.AuthToken}");
-			Debug.WriteLine($"Current Campaign Id: {CampaignData.Instance.CurrentCampaignId}");
 			/*
 			if (AdminData.Instance.IsAuthenticated)
 			{

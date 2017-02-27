@@ -101,6 +101,10 @@ namespace EventCaptureApp.ViewModels
 				this.IsBusy = false;
 				await _navigationService.NavigateAsync(AppPages.LeadSubmitted.Name);
 			}
+			else
+			{
+				await this.DisplayAlert("Form Incomplete", "Please ensure all required fields are filled correctly", "OK");
+			}
 		}
 
 		protected Tuple<bool, List<FormInputResult>> GetFormResults() {
