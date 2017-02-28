@@ -33,8 +33,8 @@ namespace EventCaptureApp
 			await Task.Delay(LaunchDelayTime);
 			Debug.WriteLine(AppFiles.Instance.LocalStorageFolder.Path);
 			Debug.WriteLine($"Auth Token: {AdminData.Instance.AuthToken}");
-			/*
-			if (AdminData.Instance.IsAuthenticated)
+
+			/*if (AdminData.Instance.IsAuthenticated)
 			{
 				if (CampaignData.Instance.Current == null)
 				{
@@ -46,9 +46,8 @@ namespace EventCaptureApp
 			}
 			else {
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
-			}
-			*/
-			await this.NavigationService.NavigateAsync(AppPages.Login.Name);
+			}*/
+			await this.NavigationService.NavigateAsync(AppPages.Campaign.Name);
 		}
 
 		protected override void RegisterTypes()
@@ -58,6 +57,7 @@ namespace EventCaptureApp
 			this.Container.RegisterTypeForNavigation<LoginPage>();
 			this.Container.RegisterTypeForNavigation<CampaignListPage>();
 			this.Container.RegisterTypeForNavigation<UpdatePage>();
+			this.Container.RegisterTypeForNavigation<AdminPage>();
 			this.Container.RegisterTypeForNavigation<CampaignPage>();
 			this.Container.RegisterTypeForNavigation<DocumentPage>();
 			this.Container.RegisterTypeForNavigation<LeadCapturePage>();

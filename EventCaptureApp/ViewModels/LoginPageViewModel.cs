@@ -6,6 +6,7 @@ using EventCaptureApp.Helpers;
 using EventCaptureApp.Models;
 using Prism.Commands;
 using Prism.Navigation;
+using Plugin.Connectivity;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -22,6 +23,9 @@ namespace EventCaptureApp.ViewModels
 		{
 			_navigationService = navigationService;
 			this.SubmitCommand = new DelegateCommand(async() => await OnSubmitCommand()).ObservesCanExecute((p) => IsNotBusy);
+
+			this.EmailAddress = "twoollacott@brayleino.co.uk";
+			this.Password = "password1234";
 		}
 
 		public string EmailAddress
@@ -60,6 +64,11 @@ namespace EventCaptureApp.ViewModels
 
 		public async Task OnSubmitCommand()
 		{
+			if (this.IsInternetAvailable)
+			{
+				await this.DisplayAlert("Internet connection unavailable", "Please ensure you have internet connection before continuing", "OK");
+				return;
+			}
 			if (this.IsValidForm)
 			{
 				await this.SubmitAuthRequest();

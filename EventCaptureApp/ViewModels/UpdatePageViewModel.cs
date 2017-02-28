@@ -5,7 +5,6 @@ using EventCaptureApp.Data;
 using EventCaptureApp.Enums;
 using EventCaptureApp.Models;
 using System.Linq;
-using Plugin.Connectivity;
 using EventCaptureApp.Services;
 using Prism.Commands;
 using Prism.Navigation;
@@ -60,7 +59,7 @@ namespace EventCaptureApp.ViewModels
 		{
 			this.IsBusy = true;
 			this.Status = "Checking for updates...";
-			if (CrossConnectivity.Current.IsConnected)
+			if (this.IsInternetAvailable)
 			{
 				_updateFileList = await CampaignData.Instance.GetCampaignUpdateFileList(campaignId);
 				_numberFilesDownload = _updateFileList.Count;
@@ -69,7 +68,7 @@ namespace EventCaptureApp.ViewModels
 			}
 			else {
 				this.UpdatesAvailable = false;
-				this.Status = "No internet connection found";
+				this.Status = "No internet connection available";
 			}
 			this.IsBusy = false;
 		}

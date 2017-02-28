@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Plugin.Connectivity;
 using Prism.Mvvm;
 using Prism.Navigation;
 
@@ -27,6 +28,11 @@ namespace EventCaptureApp.ViewModels
 		public async Task DisplayAlert(string title, string message, string cancel)
 		{
 			await App.Current.MainPage.DisplayAlert(title, message, cancel);
+		}
+
+		public bool IsInternetAvailable
+		{
+			get { return CrossConnectivity.Current.IsConnected; }
 		}
 
 		public bool IsBusy 

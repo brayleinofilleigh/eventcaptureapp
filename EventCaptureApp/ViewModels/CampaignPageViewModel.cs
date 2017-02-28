@@ -16,12 +16,14 @@ namespace EventCaptureApp.ViewModels
 		private CampaignDocument _selectedDocument;
 		private int _numberSelectedDocuments = 0;
 		public DelegateCommand CapturePageCommand { get; private set; }
+		public DelegateCommand AdminPageCommand { get; private set; }
 
 		public CampaignPageViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
 			this.SelectedCategory = this.Campaign.Categories.FirstOrDefault();
 			this.CapturePageCommand = new DelegateCommand(async () => await this.OnCapturePageCommand());
+			this.AdminPageCommand = new DelegateCommand(async () =>  await this.OnAdminPageCommand());
 		}
 
 		public Campaign Campaign
@@ -52,6 +54,11 @@ namespace EventCaptureApp.ViewModels
 		protected async Task OnCapturePageCommand()
 		{
 			await _navigationService.NavigateAsync(AppPages.LeadCapture.Name);
+		}
+
+		protected async Task OnAdminPageCommand()
+		{
+			await _navigationService.NavigateAsync(AppPages.Admin.Name);
 		}
 
 		public int NumberSelectedDocuments
