@@ -21,7 +21,7 @@ namespace EventCaptureApp.ViewModels
 		protected async Task OnHomeCommand()
 		{
 			this.Campaign.ClearSelectedDocuments();
-			await _navigationService.NavigateAsync(AppPages.Campaign.Name);
+			await App.RootNavigationService.NavigateAsync(AppPages.CampaignList.Name);
 		}
 
 		public Campaign Campaign

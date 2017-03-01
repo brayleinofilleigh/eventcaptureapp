@@ -11,6 +11,7 @@
 			<Label Text="{Binding DeviceInfo.Model, StringFormat='Device Model: {0}'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
 			<Label Text="{Binding DeviceInfo.OSPlatform, StringFormat='OS Platform: {0}'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
 			<Label Text="{Binding DeviceInfo.OSVersion, StringFormat='OS Version: {0}'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
+			<ActivityIndicator IsRunning="{Binding IsBusy}"/>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

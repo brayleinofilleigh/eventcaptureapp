@@ -7,16 +7,18 @@ using EventCaptureApp.Data;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
+using Prism.Navigation;
 
 namespace EventCaptureApp
 {
 	public partial class App : PrismApplication
 	{
 		public const int LaunchDelayTime = 500;
+		public static INavigationService RootNavigationService;
 
 		public App()
 		{
-			//
+			RootNavigationService = this.NavigationService;
 		}
 
 		protected async override void OnInitialized()
@@ -47,7 +49,7 @@ namespace EventCaptureApp
 			else {
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 			}*/
-			await this.NavigationService.NavigateAsync(AppPages.Admin.Name);
+			await this.NavigationService.NavigateAsync(AppPages.LeadCapture.Name);
 		}
 
 		protected override void RegisterTypes()

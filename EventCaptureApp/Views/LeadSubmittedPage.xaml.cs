@@ -8,6 +8,7 @@ namespace EventCaptureApp.Views
 		public LeadSubmittedPage()
 		{
 			InitializeComponent();
+			NavigationPage.SetHasBackButton(this, false);
 		}
 	}
 }

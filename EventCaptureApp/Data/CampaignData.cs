@@ -100,10 +100,14 @@ namespace EventCaptureApp.Data
 			return fileList.Where(x => x.IsOutOfDate == true).OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
 		}
 
-		public async Task<string> GetCampaignStats(int campaignId)
+		public async Task<CampaignStats> GetCampaignStats(int campaignId)
 		{
-			await Task.Delay(1000);
-			return string.Empty;
+			CampaignStats stats = new CampaignStats();
+			CampaignStatsRequest request = new CampaignStatsRequest() { AuthToken = AdminData.Instance.AuthToken, CampaignId = campaignId };
+			RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetCampaignStatsUrl, request);
+			if (response.RequestSuccess)
+				stats = JsonConvert.DeserializeObject<CampaignStats>(response.Content);
+			return stats;
 		}
 
 		private int CurrentCampaignId
@@ -114,6 +118,11 @@ namespace EventCaptureApp.Data
 	}
 
 	public class FileListRequest : RestRequestBase
+	{
+		public int CampaignId { get; set; } = 0;
+	}
+
+	public class CampaignStatsRequest: RestRequestBase
 	{
 		public int CampaignId { get; set; } = 0;
 	}
