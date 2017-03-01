@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+	xmlns:controls="clr-namespace:EventCaptureApp.Controls;assembly=EventCaptureApp"
     prism:ViewModelLocator.AutowireViewModel="True"
-	x:Class="EventCaptureApp.Views.AdminPage">
+	x:Class="EventCaptureApp.Views.AdminPage" Title="Admin details">
 	<ContentPage.Content>
 		<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-			<!-- -->
+			<Label Text="{Binding Campaign.Title}" FontAttributes="Bold" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
+			<controls:StandardButton Text="View All Campaigns" Command="{Binding CampaignListPageCommand}" Margin="0,0,0,50"/>
+			<Label Text="{Binding DeviceInfo.Model, StringFormat='Device Model: {0}'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
+			<Label Text="{Binding DeviceInfo.OSPlatform, StringFormat='OS Platform: {0}'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
+			<Label Text="{Binding DeviceInfo.OSVersion, StringFormat='OS Version: {0}'}" HorizontalOptions="Fill" HorizontalTextAlignment="Center"/>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

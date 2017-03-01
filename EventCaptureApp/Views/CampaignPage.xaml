@@ -14,7 +14,7 @@
 				<RowDefinition Height="1*"/>
 			</Grid.RowDefinitions>
 			<controls:AppHeaderBar Grid.Row="0"/>
-			<BoxView Grid.Row="0" WidthRequest="50" BackgroundColor="Aqua" HorizontalOptions="End">
+			<BoxView Grid.Row="0" WidthRequest="80" BackgroundColor="Transparent" HorizontalOptions="End">
 				<BoxView.GestureRecognizers>
 					<TapGestureRecognizer NumberOfTapsRequired="3" Command="{Binding AdminPageCommand}"/>
 				</BoxView.GestureRecognizers>

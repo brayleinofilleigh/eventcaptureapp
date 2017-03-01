@@ -25,7 +25,15 @@ namespace EventCaptureApp.Data
 		public async Task<AuthRequestResponse> GetAuthToken(string emailAddress, string password)
 		{
 			AuthRequestResponse authResponse = new AuthRequestResponse();
-			AuthRequest request = new AuthRequest() { EmailAddress = emailAddress, Password = password };
+			AuthRequest request = new AuthRequest()
+			{
+				EmailAddress = emailAddress,
+				Password = password,
+				DeviceId = DeviceInfo.Instance.Id,
+				DeviceModel = DeviceInfo.Instance.Model,
+				DeviceOSPlatform = DeviceInfo.Instance.OSPlatform,
+				DeviceOSVersion = DeviceInfo.Instance.OSVersion
+			};
 			//RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetAuthTokenUrl, request);
 			RestResponse response = await RestService.Instance.ExecRequest(AppConstants.GetAuthTokenUrl);
 			if (response.RequestSuccess)

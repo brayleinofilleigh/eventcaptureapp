@@ -47,7 +47,7 @@ namespace EventCaptureApp
 			else {
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 			}*/
-			await this.NavigationService.NavigateAsync(AppPages.Campaign.Name);
+			await this.NavigationService.NavigateAsync(AppPages.Admin.Name);
 		}
 
 		protected override void RegisterTypes()

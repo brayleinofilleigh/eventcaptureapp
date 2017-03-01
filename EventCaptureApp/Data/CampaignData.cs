@@ -100,6 +100,12 @@ namespace EventCaptureApp.Data
 			return fileList.Where(x => x.IsOutOfDate == true).OrderBy(x => x.Extension == ".sqlite" || x.Extension == ".json").ToList();
 		}
 
+		public async Task<string> GetCampaignStats(int campaignId)
+		{
+			await Task.Delay(1000);
+			return string.Empty;
+		}
+
 		private int CurrentCampaignId
 		{
 			get { return CrossSettings.Current.GetValueOrDefault<int>(CurrentCampaignIdKey, 0); }
