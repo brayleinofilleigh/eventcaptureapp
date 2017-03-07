@@ -7,7 +7,7 @@ namespace EventCaptureApp.Enums
 		TextField = 1,
 		NumericField = 2,
 		EmailField = 3,
-		ScrollList = 4,
+		ValueList = 4,
 		TickBox = 5
 	}
 }

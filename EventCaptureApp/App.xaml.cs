@@ -49,7 +49,7 @@ namespace EventCaptureApp
 			else {
 				await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 			}*/
-			await this.NavigationService.NavigateAsync(AppPages.LeadCapture.Name);
+			await this.NavigationService.NavigateAsync(AppPages.Login.Name);
 		}
 
 		protected override void RegisterTypes()

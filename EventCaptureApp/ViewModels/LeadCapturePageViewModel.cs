@@ -7,6 +7,7 @@ using Prism.Commands;
 using System.Threading.Tasks;
 using EventCaptureApp.Enums;
 using Prism.Navigation;
+using System.Diagnostics;
 
 namespace EventCaptureApp.ViewModels
 {
@@ -37,7 +38,7 @@ namespace EventCaptureApp.ViewModels
 			{
 				IFormInputControl inputControl = AppFormInputs.GetInputControlByType(formInput.Type, formInput);
 				if (prevFormInput != null) prevFormInput.SetNextInputControl(inputControl);
-				if (formInput.Type == FormInputType.ScrollList) inputControl.SetCommand(this.ShowValueListCommand, inputControl);
+				if (formInput.Type == FormInputType.ValueList) inputControl.SetCommand(this.ShowValueListCommand, inputControl);
 				_inputControls.Add(inputControl);
 				prevFormInput = inputControl;
 			}
@@ -51,6 +52,11 @@ namespace EventCaptureApp.ViewModels
 		public LeadCaptureForm LeadCaptureForm
 		{
 			get { return this.Campaign.LeadCaptureForm; }
+		}
+
+		public int NumberSelectedDocuments
+		{
+			get { return this.Campaign.SelectedDocuments.Count; }
 		}
 
 		public List<IFormInputControl> InputControls

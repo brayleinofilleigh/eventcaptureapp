@@ -9,19 +9,18 @@ namespace EventCaptureApp.ViewModels
 {
 	public class LeadSubmittedPageViewModel: ViewModelBase
 	{
-		private INavigationService _navigationService;
 		public DelegateCommand HomeCommand { get; private set; }
 
-		public LeadSubmittedPageViewModel(INavigationService navigationService)
+		public LeadSubmittedPageViewModel()
 		{
-			_navigationService = navigationService;
 			this.HomeCommand = new DelegateCommand(async () => await this.OnHomeCommand());
 		}
 
 		protected async Task OnHomeCommand()
 		{
-			this.Campaign.ClearSelectedDocuments();
-			await App.RootNavigationService.NavigateAsync(AppPages.CampaignList.Name);
+			this.Campaign.ResetSelectedDocuments();
+			this.Campaign.ResetFormInputValues();
+			await App.RootNavigationService.NavigateAsync(AppPages.Campaign.Name);
 		}
 
 		public Campaign Campaign

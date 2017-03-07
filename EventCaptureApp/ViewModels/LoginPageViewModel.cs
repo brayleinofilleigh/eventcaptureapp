@@ -64,7 +64,7 @@ namespace EventCaptureApp.ViewModels
 
 		public async Task OnSubmitCommand()
 		{
-			if (this.IsInternetAvailable)
+			if (!this.IsInternetAvailable)
 			{
 				await this.DisplayAlert("Internet connection unavailable", "Please ensure you have internet connection before continuing", "OK");
 				return;

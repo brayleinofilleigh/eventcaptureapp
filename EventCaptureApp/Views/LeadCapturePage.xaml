@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 		xmlns:controls="clr-namespace:EventCaptureApp.Controls;assembly=EventCaptureApp"
@@ -15,6 +15,7 @@
 					<StackLayout x:Name="inputControlsLayout" Spacing="10">
 						<!-- -->
 					</StackLayout>
+					<Label Text="{Binding NumberSelectedDocuments, StringFormat='Number of documents selected: {0}'}" Margin="0,20,0,20"/>
 					<controls:StandardButton Text="Submit" Command="{Binding SubmitCommand}"/>
 				</StackLayout>
 			</ScrollView>

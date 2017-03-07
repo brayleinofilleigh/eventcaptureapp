@@ -9,8 +9,8 @@ namespace EventCaptureApp.Controls
 {
 	public class CategoryMenuBar: StackLayout
 	{
-		public static readonly BindableProperty CategoriesProperty = BindableProperty.Create("Categories", typeof(List<CampaignCategory>), typeof(CategoryMenuBar), null, propertyChanged: OnCategoriesChanged);
-		public static readonly BindableProperty SelectedCategoryProperty = BindableProperty.Create("SelectedCategory", typeof(CampaignCategory), typeof(CategoryMenuBar), null, propertyChanged: OnSelectedCategoryChanged);
+		public static readonly BindableProperty CategoriesProperty = BindableProperty.Create(nameof(Categories), typeof(List<CampaignCategory>), typeof(CategoryMenuBar), null, propertyChanged: OnCategoriesChanged);
+		public static readonly BindableProperty SelectedCategoryProperty = BindableProperty.Create(nameof(SelectedCategory), typeof(CampaignCategory), typeof(CategoryMenuBar), null, propertyChanged: OnSelectedCategoryChanged);
 		private List<CategoryMenuBarButton> _categoryButtons;
 		private TapGestureRecognizer _categoryTapRecognizer;
 

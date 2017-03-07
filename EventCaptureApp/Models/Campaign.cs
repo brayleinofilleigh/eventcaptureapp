@@ -21,7 +21,7 @@ namespace EventCaptureApp
 
 		public LeadCaptureForm LeadCaptureForm { get; set; } = new LeadCaptureForm();
 
-		///////////////////////////////////
+		//////////////////////////////////////////////////////////////////////
 
 		[Newtonsoft.Json.JsonIgnore]
 		public List<CampaignDocument> Documents
@@ -41,10 +41,16 @@ namespace EventCaptureApp
 			get { return this.SelectedDocuments.Select(x => x.Id).ToList(); }
 		}
 
-		public void ClearSelectedDocuments()
+		public void ResetSelectedDocuments()
 		{
 			foreach (CampaignDocument document in this.SelectedDocuments)
 				document.IsSelected = false;
+		}
+
+		public void ResetFormInputValues()
+		{
+			foreach (FormInput formInput in this.LeadCaptureForm.FormInputs)
+				formInput.Value = string.Empty;
 		}
 	}
 }

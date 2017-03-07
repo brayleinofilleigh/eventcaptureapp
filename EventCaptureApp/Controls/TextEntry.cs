@@ -11,7 +11,7 @@ namespace EventCaptureApp.Controls
 {
 	public class TextEntry: Entry, IFormInputControl, IDisposable
 	{
-		public static readonly BindableProperty HighlightAsInvalidProperty = BindableProperty.Create("HighlightAsInvalid", typeof(bool), typeof(TextEntry), false, propertyChanged: OnHighlightAsInvalidChanged);
+		public static readonly BindableProperty HighlightAsInvalidProperty = BindableProperty.Create(nameof(HighlightAsInvalid), typeof(bool), typeof(TextEntry), false, propertyChanged: OnHighlightAsInvalidChanged);
 		private IFormInputControl _nextInputControl;
 
 		public TextEntry()
@@ -37,7 +37,6 @@ namespace EventCaptureApp.Controls
 		{
 			if (newValue != null)
 			{
-				Debug.WriteLine(newValue);
 				TextEntry textEntry = (TextEntry)bindable;
 				textEntry.BackgroundColor = (bool)newValue ? Color.Aqua : AppColors.White;
 			}

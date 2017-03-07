@@ -127,7 +127,7 @@ namespace EventCaptureApp
 						new FormInput { Id = 1, Title = "First Name", Type = Enums.FormInputType.TextField, IsRequired = true },
 						new FormInput { Id = 2, Title = "Last Name", Type = Enums.FormInputType.TextField, IsRequired = true },
 						new FormInput { Id = 3, Title = "Company Name", Type = Enums.FormInputType.TextField, IsRequired = true },
-						new FormInput { Id = 4, Title = "Industry Type", Type = Enums.FormInputType.ScrollList,
+						new FormInput { Id = 4, Title = "Industry Type", Type = Enums.FormInputType.ValueList,
 							Values = new List<string>() {
 								"Commercial",
 								"Oil & Gas",
