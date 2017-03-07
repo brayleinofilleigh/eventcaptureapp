@@ -31,21 +31,25 @@ namespace EventCaptureApp.ViewModels
 			_navigationService = navigationService;
 			_updateFileList = new List<FileReference>(); 
 			_fileDownloader = FileDownloader.Instance;
-			this.ContinueCommand = new DelegateCommand(async () => await OnContinueCommand()).ObservesCanExecute((p) => IsNotBusy);
-			this.UpdateCommand = new DelegateCommand(OnUpdateCommand).ObservesCanExecute((p) => IsNotBusy);
+			this.ContinueCommand = new DelegateCommand(async () => await OnContinueCommand()).ObservesCanExecute(() => IsNotBusy);
+			this.UpdateCommand = new DelegateCommand(OnUpdateCommand).ObservesCanExecute(() => IsNotBusy);
+		}
+
+		public override void OnNavigatingTo(NavigationParameters parameters)
+		{
+			if (parameters.ContainsKey(NavigationParameterKeys.Campaign))
+			{
+				this.Campaign = (CampaignOverview)parameters[NavigationParameterKeys.Campaign];
+			}
+			else if (CampaignData.Instance.Current != null)
+			{
+				this.Campaign = CampaignData.Instance.Current;
+			}
 		}
 
 		public async override void OnNavigatedTo(NavigationParameters parameters)
 		{
 			_fileDownloader.DownloadEvent += OnFileDownloaderEvent;
-			if (parameters.ContainsKey(NavigationParameterKeys.Campaign))
-			{
-				this.Campaign = (CampaignOverview)parameters[NavigationParameterKeys.Campaign];
-			}
-			else if(CampaignData.Instance.Current != null) 
-			{
-				this.Campaign = CampaignData.Instance.Current;
-			}
 			if (this.Campaign != null)
 				await this.FileUpdateCheck(this.Campaign.Id);
 		}

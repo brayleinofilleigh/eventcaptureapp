@@ -22,7 +22,7 @@ namespace EventCaptureApp.ViewModels
 		public LoginPageViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
-			this.SubmitCommand = new DelegateCommand(async() => await OnSubmitCommand()).ObservesCanExecute((p) => IsNotBusy);
+			this.SubmitCommand = new DelegateCommand(async () => await this.OnSubmitCommand()).ObservesCanExecute(() => IsNotBusy);
 
 			this.EmailAddress = "twoollacott@brayleino.co.uk";
 			this.Password = "password1234";

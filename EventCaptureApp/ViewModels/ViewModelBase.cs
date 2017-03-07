@@ -20,6 +20,11 @@ namespace EventCaptureApp.ViewModels
 			//
 		}
 
+		public virtual void OnNavigatingTo(NavigationParameters parameters)
+		{
+			//
+		}
+
 		public virtual void OnNavigatedTo(NavigationParameters parameters)
 		{
 			//

@@ -15,7 +15,7 @@ namespace EventCaptureApp.ViewModels
 		{
 		}
 
-		public override void OnNavigatedTo(Prism.Navigation.NavigationParameters parameters)
+		public override void OnNavigatingTo(Prism.Navigation.NavigationParameters parameters)
 		{
 			if (parameters.ContainsKey(NavigationParameterKeys.Document))
 			{
